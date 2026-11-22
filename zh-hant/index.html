@@ -51,7 +51,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=28">
+  <link rel="stylesheet" href="../styles.css?v=29">
 </head>
 <body>
 
@@ -81,16 +81,18 @@
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
       </button>
-      <label class="lang-switch" data-i18n="skip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
-        <select id="langSelect" aria-label="Language">
-          <option value="zh">简体中文</option>
-          <option value="zh-hant" selected>繁體中文</option>
-          <option value="en">English</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-        </select>
-      </label>
+      <div class="lang-switch" id="langSwitch" data-i18n="skip">
+        <button class="lang-btn" type="button" aria-label="Language" aria-expanded="false" aria-controls="langMenu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu">
+          <li><a href=".././" lang="zh-Hans" hreflang="zh-Hans" data-lang="zh">简体中文</a></li>
+          <li><a href="../zh-hant/" lang="zh-Hant" hreflang="zh-Hant" data-lang="zh-hant" aria-current="true">繁體中文</a></li>
+          <li><a href="../en/" lang="en" hreflang="en" data-lang="en">English</a></li>
+          <li><a href="../ja/" lang="ja" hreflang="ja" data-lang="ja">日本語</a></li>
+          <li><a href="../ko/" lang="ko" hreflang="ko" data-lang="ko">한국어</a></li>
+        </ul>
+      </div>
       <a class="btn btn-primary btn-sm" href="#download">下載</a>
     </div>
   </div>
@@ -433,6 +435,6 @@
   </div>
 </footer>
 
-<script src="../main.js?v=28"></script>
+<script src="../main.js?v=29"></script>
 </body>
 </html>

@@ -37,18 +37,62 @@
     applyShots();
   });
 
-  // ---------- 语言：选了就记住，中文首页不再按浏览器语言跳转 ----------
-  document.getElementById("langSelect")?.addEventListener("change", (e) => {
-    const lang = e.target.value;
-    try { localStorage.setItem("uterm-lang", lang); } catch (err) {}
-    location.href = `${base}${lang === "zh" ? "" : lang + "/"}${location.hash}`;
-  });
+  // ---------- 语言菜单：菜单项是指向各语言页的链接；选了就记住，中文首页不再按浏览器语言跳转 ----------
+  const langSwitch = document.getElementById("langSwitch");
+  if (langSwitch) {
+    const button = langSwitch.querySelector(".lang-btn");
+    const items = [...langSwitch.querySelectorAll(".lang-menu a")];
+    const isOpen = () => langSwitch.classList.contains("is-open");
+    const setOpen = (open) => {
+      langSwitch.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", String(open));
+    };
+    button.addEventListener("click", () => setOpen(!isOpen()));
+    // 点菜单外面、焦点离开（Tab 走了）都收起。
+    document.addEventListener("pointerdown", (e) => { if (isOpen() && !langSwitch.contains(e.target)) setOpen(false); });
+    langSwitch.addEventListener("focusout", (e) => { if (isOpen() && e.relatedTarget && !langSwitch.contains(e.relatedTarget)) setOpen(false); });
+    langSwitch.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (isOpen()) { setOpen(false); button.focus(); }
+        return;
+      }
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
+      e.preventDefault();
+      setOpen(true);
+      const at = items.indexOf(document.activeElement);
+      const current = Math.max(0, items.findIndex((a) => a.hasAttribute("aria-current")));
+      const next = e.key === "Home" ? 0
+        : e.key === "End" ? items.length - 1
+        : at < 0 ? current   // 从按钮按方向键：先落在当前语言上
+        : (at + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+      items[next].focus();
+    });
+    for (const a of items) {
+      a.addEventListener("click", (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // 新标签页打开的不算换语言
+        try { localStorage.setItem("uterm-lang", a.dataset.lang); } catch (err) {}
+        e.preventDefault();
+        if (a.hasAttribute("aria-current")) { setOpen(false); return; }
+        location.href = a.href + location.hash;
+      });
+    }
+  }
 
   // ---------- 导航：滚动后加底；高亮当前段落 ----------
   const nav = document.getElementById("nav");
   const onScroll = () => nav.classList.toggle("is-scrolled", scrollY > 12);
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+  // 导航链接一行放不下时，多出来的会换到第二行并被裁掉（见 styles.css）；看不见的标成 inert，不进 Tab 顺序。
+  const navLinks = document.querySelector(".nav-links");
+  if (navLinks && "ResizeObserver" in window) {
+    const syncNavLinks = () => {
+      const firstRow = navLinks.firstElementChild.offsetTop;
+      for (const a of navLinks.children) a.inert = a.offsetTop > firstRow;
+    };
+    new ResizeObserver(syncNavLinks).observe(navLinks);
+    document.fonts?.ready.then(syncNavLinks);
+  }
   const links = new Map([...document.querySelectorAll(".nav-links a")].map((a) => [a.getAttribute("href").slice(1), a]));
   const sectionIO = new IntersectionObserver((entries) => {
     for (const e of entries) {
