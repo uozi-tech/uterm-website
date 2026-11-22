@@ -7,7 +7,7 @@
   // ---------- 主题：截图跟着换成同一屏的日间 / 夜间版 ----------
   const themeMeta = document.querySelector('meta[name="theme-color"]');
   // 截图换过就把这个号加一：同名文件浏览器会用缓存。
-  const SHOTS_VERSION = "13";
+  const SHOTS_VERSION = "14";
   const applyShots = () => {
     const t = theme();
     document.querySelectorAll("img[data-shot]").forEach((img) => {
