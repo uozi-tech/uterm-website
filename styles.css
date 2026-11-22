@@ -107,7 +107,7 @@ body {
   overflow-x: hidden;
 }
 /* 切主题时颜色过渡，不闪 */
-body, .nav, .card, .path, .feature-list div, .platform, .download, .fact, .btn-ghost, .eyebrow, .theme-toggle {
+body, .nav, .card, .path, .feature-list div, .platform, .download, .fact, .btn-ghost, .eyebrow, .theme-toggle, .lang-switch {
   transition: background-color .35s ease, color .35s ease, box-shadow .35s ease;
 }
 a { color: inherit; text-decoration: none; }
@@ -150,6 +150,19 @@ code, kbd { font-family: var(--mono); }
 .theme-toggle .moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
 :root[data-theme="dark"] .theme-toggle .sun { opacity: 0; transform: rotate(90deg) scale(.6); }
 :root[data-theme="dark"] .theme-toggle .moon { opacity: 1; transform: none; }
+
+/* 语言：和主题按钮同一个样子，只露地球图标，系统的下拉框整块盖在上面（透明），点哪都能选。 */
+.lang-switch {
+  position: relative; width: 36px; height: 36px; border-radius: 8px;
+  display: grid; place-items: center; color: var(--muted); background: var(--surface-2);
+}
+.lang-switch:hover, .lang-switch:focus-within { color: var(--text); }
+.lang-switch svg { width: 18px; height: 18px; }
+.lang-switch select {
+  position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+  font: inherit; border: 0;
+}
+.lang-switch:focus-within { outline: 2px solid var(--blue); outline-offset: 2px; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -392,19 +405,19 @@ footer .beian { color: var(--faint); }
 /* ---------- 真实截图（来自 make gallery / iOS 画廊） ---------- */
 .shot { width: 100%; height: auto; display: block; filter: var(--shot-shadow); }
 .stage .shot { position: relative; }
-/* 机身：iPhone Duo 展开、横握（951×669 pt）。截图是在 Duo 模拟器里整屏截的，自带屏幕圆角遮罩（圆角外透明，
-   曲线是连续圆角，CSS 的 border-radius 画不出来）。边框沿遮罩往外描：四个方向各叠一层不模糊的投影，
-   形状和屏幕曲线完全一致；最后一层是柔和的阴影。 */
-.phone { position: relative; --bezel: #1a1a20; }
-:root[data-theme="dark"] .phone { --bezel: #34343e; }
-.phone img {
-  width: 100%; height: auto; display: block;
-  filter: drop-shadow(5px 0 0 var(--bezel)) drop-shadow(-5px 0 0 var(--bezel))
-          drop-shadow(0 5px 0 var(--bezel)) drop-shadow(0 -5px 0 var(--bezel))
-          drop-shadow(0 18px 36px rgba(10, 14, 40, .22));
+/* 机身：Apple 官方的 iPhone Duo 机模（展开、横握），已经合成在截图里（scripts/frame-duo.swift；整张 3093×2247，
+   其中屏幕 2853×2007，机身四周还留着约 1.7% 的透明边）。这里不再画边框。
+   按 Apple 的营销准则原样摆：不加阴影和高光、不裁、不倾斜、不遮挡，机身不单独做动画，显示高度不小于 200px。 */
+.phone { position: relative; }
+.phone img { width: 100%; height: auto; display: block; }
+/* .hero 是 overflow: hidden，探过头机身会被裁：往右探出窗口 3%，但离视口右缘至少留 16px；往下探出 5%
+   （窗口最高约 700px，即 35px，小于 .hero 底部的 40px 留白）。宽度下限保证高度过 200px。 */
+.stage .phone { position: absolute; right: max(-3%, calc((100% - 100vw) / 2 + 16px)); bottom: -5%; width: max(39%, 290px); }
+/* 窄屏：叠在窗口角上的话机身只有一百多像素高，看不清也不合准则。改成排在窗口下面、压住窗口底边一点，
+   宽度保证机身高度过 200px（宽高比 3093:2247，280px 宽 ≈ 203px 高）。 */
+@media (max-width: 720px) {
+  .stage .phone { position: relative; right: auto; bottom: auto; width: max(86%, 280px); margin: -7% 0 0 auto; }
 }
-.stage .phone { position: absolute; right: -3%; bottom: -9%; width: 36%; will-change: transform; }
-@media (max-width: 720px) { .stage .phone { width: 44%; right: -1%; } }
 .phones { display: flex; justify-content: center; align-items: flex-end; gap: clamp(16px, 4vw, 56px); margin-top: 64px; }
 .phones { flex-wrap: wrap; }
 .phones .phone { width: min(520px, 100%); }
@@ -432,5 +445,4 @@ footer .beian { color: var(--faint); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; }
   .reveal, .phones.reveal .phone { opacity: 1; transform: none; translate: none; transition: none; }
-  .stage .phone { transform: none !important; }
 }

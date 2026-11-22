@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-Hant" data-base="../" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>uTerm：Mac 與 iPhone 上的 SSH 終端機</title>
+  <meta name="description" content="uTerm 是 macOS 與 iOS／iPadOS 上的 SSH 終端機，整合 SFTP、連接埠轉送、金鑰管理、多主機平行執行和 AI 助理，還能用 iPhone 遠端控制 Mac。開放原始碼，無須註冊。">
+  <meta name="theme-color" content="#fbfbfd">
+  <script>
+    // 默认日间；用户切过就记住。放在 head 里，首帧就是对的主题，不闪。
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("uterm-theme"); } catch (e) {}
+      document.documentElement.dataset.theme = t === "dark" ? "dark" : "light";
+    })();
+  </script>
+  <link rel="alternate" hreflang="zh-Hans" href="https://uterm.uozi.com/">
+  <link rel="alternate" hreflang="en" href="https://uterm.uozi.com/en/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://uterm.uozi.com/zh-hant/">
+  <link rel="alternate" hreflang="ja" href="https://uterm.uozi.com/ja/">
+  <link rel="alternate" hreflang="ko" href="https://uterm.uozi.com/ko/">
+  <link rel="alternate" hreflang="x-default" href="https://uterm.uozi.com/en/">
+  <script>
+    // 第一次打开中文首页、浏览器又不是简体中文时，跳到对应语言；用户在页脚选过语言就照用户的。
+    (function () {
+      if (document.documentElement.lang !== "zh-CN") return;
+      var saved = null;
+      try { saved = localStorage.getItem("uterm-lang"); } catch (e) {}
+      if (saved === "zh") return;
+      var pick = saved;
+      if (!pick) {
+        var langs = navigator.languages || [navigator.language || ""];
+        for (var i = 0; i < langs.length && !pick; i++) {
+          var l = String(langs[i]).toLowerCase();
+          if (/^zh-(hant|tw|hk|mo)/.test(l)) pick = "zh-hant";
+          else if (/^zh/.test(l)) pick = "zh";
+          else if (/^ja/.test(l)) pick = "ja";
+          else if (/^ko/.test(l)) pick = "ko";
+          else if (/^en/.test(l)) pick = "en";
+        }
+        if (!pick) pick = "en";
+      }
+      if (pick !== "zh") location.replace(pick + "/" + location.hash);
+    })();
+  </script>
+  <meta property="og:title" content="uTerm：Mac 與 iPhone 上的 SSH 終端機">
+  <meta property="og:description" content="SSH 終端機、SFTP、連接埠轉送、多主機平行執行、AI 助理，以及用 iPhone 遠端控制 Mac。">
+  <meta property="og:image" content="assets/icon-1024.png">
+  <link rel="icon" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/icon-256.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=27">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="uTerm 首頁">
+      <img src="../assets/icon-256.png" alt="">
+      <span class="wordmark">u<b>Term</b></span>
+    </a>
+    <nav class="nav-links" aria-label="頁面導覽">
+      <a href="#terminal">終端機</a>
+      <a href="#toolbox">工具箱</a>
+      <a href="#mobile">iPhone</a>
+      <a href="#remote">遠端控制</a>
+      <a href="#ai">AI</a>
+      <a href="#features">所有功能</a>
+      <a href="#privacy">隱私權</a>
+      <a href="#changelog">更新紀錄</a>
+      <a href="#faq">常見問題</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/uozi-tech/uTerm" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+        GitHub
+      </a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切換淺色／深色">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+      <label class="lang-switch" data-i18n="skip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        <select id="langSelect" aria-label="Language">
+          <option value="zh">简体中文</option>
+          <option value="zh-hant" selected>繁體中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+      </label>
+      <a class="btn btn-primary btn-sm" href="#download">下載</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ========== Hero ========== -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <a class="eyebrow" href="#remote">2.4 更新：遠端桌面可以只看 Mac 上的單一視窗 <span class="arrow">→</span></a>
+        <h1>Mac 和 iPhone 上的<br>SSH 終端機與伺服器工具</h1>
+        <p class="lede">終端機採用 Ghostty 引擎。檔案管理、連接埠轉送、金鑰、多主機平行執行和 AI 助理都在同一個 App 裡，iPhone 還能遠端控制 Mac。原始碼以 AGPL-3.0 開放，無須註冊帳號。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/uozi-tech/uTerm/releases/latest">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.8c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.37-3.68ZM14.1 6.03c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27Z"/></svg>
+            下載 macOS 版
+          </a>
+          <a class="btn btn-ghost" href="https://testflight.apple.com/join/Ep8bfaZT">iPhone 與 iPad 版（公開測試）</a>
+        </div>
+        <p class="hero-meta">macOS 26 以上（Apple 晶片）· iOS／iPadOS 18 以上 · AGPL-3.0</p>
+      </div>
+
+      <div class="stage reveal">
+        <img class="shot" src="../assets/shots/workspace-agent-light.webp?v=13" data-shot="workspace-agent" width="1600" height="1000"
+             alt="uTerm 工作區視窗：左側是遠端檔案、中間是終端機、右側是 AI 助理">
+        <div class="phone"><img src="../assets/shots/ios-terminal-light.webp?v=13" data-shot="ios-terminal" width="3093" height="2247"
+             alt="iPhone Duo 上的 uTerm 終端機與快捷鍵列"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 终端 ========== -->
+  <section class="section" id="terminal">
+    <div class="wrap">
+      <div class="split">
+        <div class="reveal">
+          <h2>終端機</h2>
+          <p class="sub">終端機以 Ghostty 引擎透過 GPU 繪製，大量輸出時捲動依然流暢；Claude Code、Codex 等全螢幕程式的顯示與在 Ghostty 中一致。</p>
+          <ul class="points">
+            <li>
+              <div><h3>分頁與分割畫面</h3><p>拖移分頁即可分割畫面，重新啟動後依原本的版面還原。</p></div>
+            </li>
+            <li>
+              <div><h3>重新啟動後接回終端機</h3><p>本機終端機由獨立的處理程序持有。uTerm 更新或意外結束後重新打開，終端機裡的程式不受影響。</p></div>
+            </li>
+            <li>
+              <div><h3>斷線後自動接回</h3><p>在 iPhone 上，shell 會留在主機上執行。重新連線後自動接回，並補上中斷期間的輸出。</p></div>
+            </li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <img class="shot" src="../assets/shots/workspace-split-light.webp?v=13" data-shot="workspace-split" width="1600" height="1000"
+               alt="終端機左右分割：一邊執行 Claude Code，一邊查看記憶體">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 工具箱 ========== -->
+  <section class="section" id="toolbox">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>檔案、轉送、金鑰與批次執行</h2>
+        <p class="sub">管理伺服器常用的幾項工具，和終端機放在一起。</p>
+      </div>
+
+      <div class="bento">
+        <article class="card c-3 reveal">
+          <div><h3>SFTP 視窗</h3><p>獨立的檔案視窗，支援多個分頁、拖放上傳下載，以及多路平行傳輸。檔案可用本機 App 打開，儲存後自動傳回主機；SQLite 資料庫可交給 uTable 開啟。</p></div>
+          <div class="crop"><img src="../assets/shots/sftp-window-light.webp?v=13" data-shot="sftp-window" alt="SFTP 視窗：兩個分頁，正在瀏覽 /etc/nginx"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>預覽與編輯</h3><p>在工作區中打開遠端檔案，支援語法突顯、Markdown 和圖片預覽，編輯後按 ⌘S 儲存回主機。終端機就在同一個視窗下方。</p></div>
+          <div class="crop"><img src="../assets/shots/workspace-preview-light.webp?v=13" data-shot="workspace-preview" alt="在工作區打開 nginx.conf，下方是終端機"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>連接埠轉送</h3><p>支援本機、遠端和 SOCKS 轉送。所有主機的規則集中在同一個面板中，可設為隨 uTerm 啟動自動建立。</p></div>
+          <div class="crop"><img src="../assets/shots/forward-global-light.webp?v=13" data-shot="forward-global" alt="全域連接埠轉送視窗"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>多主機平行執行</h3><p>在選定的主機上同時執行同一個指令，每台主機的輸出分格顯示，也可以轉到背景執行。某台出錯時，可交給 AI 繼續排查。</p></div>
+          <div class="crop"><img src="../assets/shots/parallel-shell-light.webp?v=13" data-shot="parallel-shell" alt="平行執行視窗：六台主機的磁碟用量"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>主機與群組</h3><p>依用途分組，支援跳板主機。新增時可以先測試連線，也可以複製現有主機，或從 ~/.ssh/config 匯入。</p></div>
+          <div class="crop"><img src="../assets/shots/welcome-hosts-light.webp?v=13" data-shot="welcome-hosts" alt="歡迎視窗的主機列表"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>快速指令</h3><p>儲存常用指令並指定目標主機，執行紀錄保留 30 天。也可以只描述目標，交給 AI 執行。</p></div>
+          <div class="crop"><img src="../assets/shots/welcome-commands-light.webp?v=13" data-shot="welcome-commands" alt="歡迎視窗的快速指令庫"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>金鑰</h3><p>產生或匯入 Ed25519、RSA、ECDSA 金鑰，支援有密語保護的私密金鑰。金鑰存放在鑰匙圈中，並透過 iCloud 鑰匙圈同步。</p></div>
+          <div class="crop"><img src="../assets/shots/keys-light.webp?v=13" data-shot="keys" alt="金鑰管理視窗"></div>
+        </article>
+        <article class="card c-3 reveal">
+          <div><h3>已知主機指紋</h3><p>首次連線時核對主機指紋，指紋變更時阻擋連線。已儲存的指紋可以在這裡查看和刪除。</p></div>
+          <div class="crop"><img src="../assets/shots/known-hosts-light.webp?v=13" data-shot="known-hosts" alt="已知主機指紋列表"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== iPhone 与 iPad ========== -->
+  <section class="section" id="mobile">
+    <div class="wrap">
+      <div class="split">
+        <div class="reveal">
+          <h2>iPhone 與 iPad</h2>
+          <p class="sub">終端機、檔案、連接埠轉送、快速指令和 AI 助理在 iPhone 與 iPad 上同樣可用，主機和金鑰透過 iCloud 同步。iPhone Duo 展開或橫向握持時採用大螢幕排版。</p>
+          <ul class="points">
+            <li>
+              <div><h3>工作階段留在主機上</h3><p>shell 由主機上的保持程序執行。切到背景、切換網路，或 App 被系統結束後，回來時都會自動接回，並補上中斷期間的輸出。</p></div>
+            </li>
+            <li>
+              <div><h3>鍵盤列</h3><p>提供 esc、tab、ctrl 和方向鍵，可填入 claude、codex 等常用指令，還能把剪貼簿或相簿裡的圖片、影片傳送給主機上的 AI 程式。</p></div>
+            </li>
+            <li>
+              <div><h3>動態島與背景執行</h3><p>Claude Code 等待確認、完成或出錯時，狀態會顯示在動態島和鎖定畫面上。長按分頁選擇「離開後繼續執行」，切換到其他 App 後連線仍會保持。</p></div>
+            </li>
+            <li>
+              <div><h3>分頁與分割畫面</h3><p>終端機和檔案分頁位於同一個工作區，可拖移分成兩欄；回捲內容支援搜尋。</p></div>
+            </li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <div class="phone"><img src="../assets/shots/ios-terminal-light.webp?v=13" data-shot="ios-terminal" width="3093" height="2247" alt="iPhone Duo 橫向握持：終端機裡正在執行 Claude Code"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 远程控制 ========== -->
+  <section class="section" id="remote">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>遠端控制 Mac</h2>
+        <p class="sub">在 iPhone 上繼續使用 Mac 上開著的終端機，或查看並操作 Mac 的螢幕。另一台 Mac 也可以當作控制端。</p>
+      </div>
+
+      <div class="phones reveal">
+        <div class="phone"><img src="../assets/shots/ios-remote-desktop-light.webp?v=13" data-shot="ios-remote-desktop" width="3093" height="2247" alt="iPhone Duo 橫向握持：用遠端桌面查看 Mac 的螢幕"></div>
+        <div class="phone"><img src="../assets/shots/ios-hosts-light.webp?v=13" data-shot="ios-hosts" width="3093" height="2247" alt="iPhone Duo 橫向握持：主機頁面上的「我的 Mac」"></div>
+      </div>
+
+      <div class="feature-list reveal">
+        <div><b>終端機鏡像</b><span>Mac 上新開的終端機會自動出現在手機上，兩端可以同時輸入，畫面逐格一致，Claude Code 的執行狀態也會同步。</span></div>
+        <div><b>遠端桌面</b><span>硬體編碼、低延遲、含聲音。可切換顯示器、放大至 8 倍；沒有接顯示器的 Mac 會依手機螢幕建立虛擬顯示器。</span></div>
+        <div><b>手勢</b><span>提供觸控式軌跡板與觸控螢幕兩種模式，三指滑動可切換桌面、打開指揮中心。</span></div>
+        <div><b>遠端解鎖</b><span>可以在手機上輸入密碼來解鎖 Mac，或通過系統的驗證視窗。密碼只儲存在手機上，使用時需要 Face ID 驗證。</span></div>
+        <div><b>Mac 上的檔案</b><span>無須開啟 SSH，即可瀏覽、上傳和下載已配對 Mac 上的檔案。也可以把本機的檔案夾分享給受控的 Mac，預設為唯讀。</span></div>
+        <div><b>用 Mac 控制 Mac</b><span>以另一台 Mac 當作控制端時，螢幕、終端機和單一視窗查看都同樣可用。</span></div>
+        <div><b>裝置群組</b><span>手機、平板和 Mac 加入同一個裝置群組後，群組內任一台裝置確認即可加入新裝置，不必逐台配對。</span></div>
+        <div><b>更新時不中斷</b><span>遠端控制在獨立的背景處理程序中執行，Mac 上的 uTerm 更新或意外結束時，現有連線不受影響。</span></div>
+      </div>
+
+      <div class="winmode reveal" id="winmode">
+        <div>
+          <span class="tag">2.4 新功能</span>
+          <h3>視窗模式</h3>
+          <p class="lead">只查看 Mac 上的單一視窗。Mac 會把該視窗調整成適合手機螢幕的尺寸，內容隨之重新排版；離開後視窗會恢復原本的大小。</p>
+          <ul class="points">
+            <li>
+              <div><h3>文字大小</h3><p>選「最清晰」時，Mac 的像素與手機一對一對應；選「標準」時，文字與在 Mac 上一樣大，也可以再調大。</p></div>
+            </li>
+            <li>
+              <div><h3>觸控螢幕模式</h3><p>直接點一下目標位置。單指拖移為捲動，按住後拖移為拖放，雙指輕點為按右鍵。</p></div>
+            </li>
+            <li>
+              <div><h3>獨立鍵盤滑鼠</h3><p>輸入直接傳給該視窗，Mac 上的指標不會移動，視窗被遮住時也能操作；Mac 前面的使用者可以同時使用自己的鍵盤和滑鼠。</p></div>
+            </li>
+            <li>
+              <div><h3>保持在最前面</h3><p>視窗被遮住時，macOS 會暫停重繪。開啟此項目後，查看期間該視窗會一直保持在最前面。</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="paths reveal">
+        <div class="path"><header>區域網路直連</header><p>在同一個網路內直接連線，延遲最低。</p></div>
+        <div class="path"><header>點對點連線</header><p>不在同一個網路時，會先嘗試打洞直連，不經過伺服器。</p></div>
+        <div class="path"><header>自架中繼</header><p>無法直連時，透過你自行部署的中繼轉送。中繼只轉送加密資料，無法讀取內容。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AI ========== -->
+  <section class="section" id="ai">
+    <div class="wrap">
+      <div class="split flip">
+        <div class="reveal">
+          <h2>AI 助理</h2>
+          <p class="sub">助理在目前的主機上執行指令、讀取結果，再決定下一步。每個指令都會依你設定的安全等級確認後才執行。</p>
+          <ul class="points">
+            <li>
+              <div><h3>安全等級</h3><p>可選「每步確認」「唯讀自動」和「AI 代批」。涉及敏感操作或無法判斷風險的指令，一律需要人工確認。</p></div>
+            </li>
+            <li>
+              <div><h3>模型服務</h3><p>使用你自己的 API Key 接入 Anthropic、OpenAI 或相容介面，可選擇模型和思考深度。</p></div>
+            </li>
+            <li>
+              <div><h3>供其他 AI 程式設計工具使用</h3><p>可以在設定中為 Claude Code、Codex、Cursor、CodeBuddy 和 Antigravity 安裝 uTerm 技能。這些工具會透過 uTerm 使用已儲存的主機來執行指令、傳輸檔案和建立隧道，不必取得密碼。</p></div>
+            </li>
+          </ul>
+          <div class="code" data-i18n="skip">
+            <header>~/.claude/skills/uterm/SKILL.md</header>
+<pre><span class="cm">---</span>
+<span class="fl">name:</span> uterm
+<span class="fl">description:</span> 通过 uTerm 使用用户已保存的 SSH 主机：执行远程命令（单机 run、
+  多机并行 run-many、快捷命令）；经 SFTP 读写远程文件；新建、启停端口转发；
+  查看用户开着的终端会话 …
+<span class="cm">---</span>
+
+<span class="st"># 用 uTerm 操作远程主机</span>
+
+地址、密码、私钥、口令、跳板机配置全程留在 uTerm 和钥匙串里，
+你一个字节也拿不到，也不需要。</pre>
+          </div>
+        </div>
+        <div class="reveal">
+          <img class="shot agent" src="../assets/shots/agent-panel-light.webp?v=13" data-shot="agent-panel"
+               alt="工作區右側的 AI 助理：執行了兩個指令並給出結論">
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 全部功能 ========== -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>所有功能</h2>
+        <p class="sub">依類別列出 uTerm 目前的所有功能。</p>
+      </div>
+      <div class="all-features">
+        <div class="feature-group reveal"><h3>終端機</h3><ul><li>Ghostty 引擎、GPU 繪製，Claude Code、Codex 等全螢幕程式正確顯示</li><li>分頁、拖移分割畫面，重新啟動後還原版面</li><li>本機終端機和 SSH 終端機在 uTerm 重新啟動、更新後自動接回</li><li>在回捲內容中搜尋（⌘F）</li><li>Claude／Codex 的執行狀態顯示在分頁上，需要你處理時發出通知</li><li>關閉仍有程式在執行的分頁前先確認</li><li>終端機 ⇄ Agent 一鍵切換</li></ul></div>
+        <div class="feature-group reveal"><h3>檔案</h3><ul><li>SFTP 視窗與工作區側邊欄，多個分頁</li><li>拖放上傳下載，多路平行傳輸</li><li>預覽、直接編輯，按 ⌘S 儲存回主機</li><li>用本機 App 打開，儲存後自動傳回</li><li>SQLite 資料庫交給 uTable 開啟</li><li>刪除檔案夾時顯示進度，可以中途取消</li></ul></div>
+        <div class="feature-group reveal"><h3>主機與連線</h3><ul><li>群組、置頂、搜尋、鍵盤操作</li><li>跳板主機、測試連線、複製為新主機</li><li>從 ~/.ssh/config 匯入</li><li>Ed25519／RSA／ECDSA 金鑰，存放在鑰匙圈</li><li>核對已知主機指紋</li><li>連接埠轉送 -L／-R／SOCKS，可隨啟動自動建立</li></ul></div>
+        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent 執行指令、讀取結果並給出結論</li><li>每步確認／唯讀自動／AI 代批三個等級</li><li>執行卡片：核准、進度、輸出、結束代碼</li><li>接入自己的模型服務，可選模型和思考深度</li><li>需要互動的指令在新的終端機視窗中執行</li><li>對話紀錄，預設保留 180 天</li></ul></div>
+        <div class="feature-group reveal"><h3>命令列與技能</h3><ul><li>utermctl：run／run-many／快速指令</li><li>SFTP 讀寫與續傳，新增或刪除連接埠轉送</li><li>讀取開著的終端機工作階段並對其輸入</li><li>存取已配對 Mac 上的檔案</li><li>為 Claude Code、Codex、Cursor、CodeBuddy、Antigravity 安裝技能</li><li>預設關閉，憑證不會離開 uTerm</li></ul></div>
+        <div class="feature-group reveal"><h3>遠端控制</h3><ul><li>終端機鏡像、含聲音的遠端桌面</li><li>只看單一視窗，依手機螢幕調整大小</li><li>觸控螢幕／觸控式軌跡板模式，三指手勢</li><li>多顯示器、放大 8 倍、虛擬顯示器</li><li>在鎖定畫面與系統驗證視窗遠端解鎖</li><li>區域網路直連、打洞、自架中繼</li></ul></div>
+        <div class="feature-group reveal"><h3>iPhone 與 iPad</h3><ul><li>終端機、檔案、轉送、快速指令和 Agent</li><li>工作階段留在主機上，斷線後自動接回</li><li>動態島、鎖定畫面狀態，離開後繼續執行</li><li>鍵盤列：常用按鍵、指令短語、傳送圖片和影片</li><li>工作區分頁混合排列、兩欄分割畫面</li><li>支援 iPhone Duo 的摺疊、展開與橫向握持</li></ul></div>
+        <div class="feature-group reveal"><h3>同步與隱私權</h3><ul><li>透過 iCloud 同步主機、群組、金鑰、快速指令</li><li>區域網路加密推送同步</li><li>偏好設定在各裝置間共用</li><li>Face ID／Touch ID App 鎖定</li><li>可在登入後於背景執行，不顯示在 Dock 中</li><li>無須帳號、不收集資料、原始碼開放</li><li>介面支援简体中文、English、繁體中文、日本語、한국어</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 隐私 ========== -->
+  <section class="section" id="privacy">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>隱私權</h2>
+        <p class="sub">uTerm 不經營任何存放使用者資料的伺服器。</p>
+      </div>
+      <div class="trust">
+        <article class="card reveal">
+          <h3>無須帳號</h3><p>安裝後即可使用，不需要註冊或登入。</p>
+        </article>
+        <article class="card reveal">
+          <h3>不收集資料</h3><p>App 中沒有任何分析或追蹤。資料只會儲存在你的裝置和你的 iCloud 中。</p>
+        </article>
+        <article class="card reveal">
+          <h3>鑰匙圈</h3><p>密碼和私密金鑰儲存在系統鑰匙圈中，可開啟 Face ID 或 Touch ID App 鎖定。</p>
+        </article>
+        <article class="card reveal">
+          <h3>開放原始碼</h3><p>App 和中繼的原始碼都以 AGPL-3.0 開放，你可以自行稽核和部署。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 更新日志（scripts/sync-changelog.py 从 CHANGELOG.md 生成） ========== -->
+  <section class="section" id="changelog">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2>更新紀錄</h2>
+        <p class="sub">Mac 版與 iPhone／iPad 版各自發布，版本號前兩段保持一致。</p>
+      </div>
+      <div class="releases">
+        <!-- changelog:start -->
+        <!-- changelog:end -->
+      </div>
+      <p class="center more-link"><a href="https://github.com/uozi-tech/uTerm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">在 GitHub 查看完整更新紀錄（簡體中文）→</a></p>
+    </div>
+  </section>
+
+  <!-- ========== 下载 ========== -->
+  <section id="download">
+    <div class="wrap">
+      <div class="download reveal">
+        <img src="../assets/icon-1024.png" alt="uTerm 圖像">
+        <h2>下載</h2>
+        <p class="sub" style="margin-inline:auto">無須註冊帳號。</p>
+        <div class="platforms">
+          <div class="platform">
+            <h3>macOS</h3>
+            <p>需要 macOS 26 或以上版本、Apple 晶片。DMG 約 17 MB，支援 App 內更新。</p>
+            <a class="btn btn-primary" href="https://github.com/uozi-tech/uTerm/releases/latest">下載 DMG</a>
+          </div>
+          <div class="platform">
+            <h3>iPhone 與 iPad</h3>
+            <p>需要 iOS／iPadOS 18 或以上版本，目前透過 TestFlight 公開測試。動態島與「離開後繼續執行」需要更新的系統版本。</p>
+            <a class="btn btn-ghost" href="https://testflight.apple.com/join/Ep8bfaZT">加入 TestFlight 公開測試</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="head reveal"><h2>常見問題</h2></div>
+      <div class="faq reveal">
+        <details><summary>iPhone 與 iPad 版要怎麼安裝？</summary><p>目前透過 TestFlight 公開測試。在 iPhone 或 iPad 上安裝 TestFlight 後，打開<a href="https://testflight.apple.com/join/Ep8bfaZT" target="_blank" rel="noopener">邀請連結</a>加入，之後的測試版會自動推送。</p></details>
+        <details><summary>和 Termius 這類工具相比有什麼不同？</summary><p>uTerm 無須帳號，資料透過你自己的 iCloud 同步，不經過第三方伺服器。它是 Mac 與 iOS 的原生 App，內建可執行指令的 AI 助理，並支援用手機遠端控制 Mac 的終端機和螢幕。</p></details>
+        <details><summary>支援 Windows 或 Linux 嗎？</summary><p>目前只支援 macOS（Apple 晶片）和 iOS／iPadOS。伺服器端沒有限制，只要能以 SSH 登入的主機都可以連線。</p></details>
+        <details><summary>遠端控制 Mac 需要什麼？</summary><p>Mac 和手機都需要安裝 uTerm。首次配對時，在 Mac 上輸入手機顯示的核對碼。在同一個區域網路內會直接連線；跨網路時先嘗試點對點連線，失敗時再透過你自行部署的中繼（一行指令就能安裝到你的伺服器上）。</p></details>
+        <details><summary>AI 助理會把我的資料傳到哪裡？</summary><p>只會傳給你設定的模型服務，並使用你的 API Key。沒有設定時，不會傳送任何內容。</p></details>
+        <details><summary>要在哪裡回報問題？</summary><p>請在 <a href="https://github.com/uozi-tech/uTerm/issues" target="_blank" rel="noopener">GitHub Issues</a> 提交。安全性問題請依照 <a href="https://github.com/uozi-tech/uTerm/blob/main/SECURITY.md" target="_blank" rel="noopener">SECURITY.md</a> 私下回報。</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="../assets/icon-256.png" alt=""><span class="wordmark">u<b>Term</b></span></a>
+    <span>© 2026 柚子星雲科技（深圳）有限公司</span>
+    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号</a>
+    <nav aria-label="頁尾">
+      <a href="https://github.com/uozi-tech/uTerm" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/uozi-tech/uTerm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">更新紀錄</a>
+      <a href="https://github.com/uozi-tech/uTerm/blob/main/PRIVACY.md" target="_blank" rel="noopener">隱私權政策</a>
+      <a href="https://github.com/uozi-tech/uTerm/blob/main/TRADEMARK.md" target="_blank" rel="noopener">名稱與圖像</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../main.js?v=27"></script>
+</body>
+</html>
