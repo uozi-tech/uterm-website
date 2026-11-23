@@ -51,7 +51,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=30">
+  <link rel="stylesheet" href="../styles.css?v=32">
 </head>
 <body>
 
@@ -141,7 +141,7 @@
               <div><h3>再起動してもターミナルはそのまま</h3><p>ローカルのターミナルは独立したプロセスが保持します。uTerm のアップデート後や予期せず終了した後に開き直しても、ターミナル内のプログラムは動き続けます。</p></div>
             </li>
             <li>
-              <div><h3>切断されても自動で復帰</h3><p>iPhone では、シェルはホスト上で動き続けます。再接続すると自動的に復帰し、切断中の出力も補われます。</p></div>
+              <div><h3>切断されても自動で復帰</h3><p>iPhone では、シェルは Linux ホスト上で動き続けます。再接続すると自動的に復帰し、切断中の出力も補われます。</p></div>
             </li>
           </ul>
         </div>
@@ -179,18 +179,22 @@
           <div class="crop"><img src="../assets/shots/parallel-shell-light.webp?v=14" data-shot="parallel-shell" alt="並列実行ウインドウ：6 台のホストのディスク使用量"></div>
         </article>
         <article class="card c-3 reveal">
-          <div><h3>ホストとグループ</h3><p>用途ごとにグループ分けでき、踏み台ホストにも対応。新規作成時に接続をテストできるほか、既存のホストを複製したり、~/.ssh/config から読み込んだりすることもできます。</p></div>
+          <div><h3>ホストとグループ</h3><p>ホストは用途ごとにグループ分けでき、ピン留めや検索もできます。新規作成時に接続をテストできるほか、既存のホストを複製したり、~/.ssh/config から読み込んだりすることもできます。</p></div>
           <div class="crop"><img src="../assets/shots/welcome-hosts-light.webp?v=14" data-shot="welcome-hosts" alt="ようこそウインドウのホスト一覧"></div>
         </article>
         <article class="card c-3 reveal">
           <div><h3>クイックコマンド</h3><p>よく使うコマンドを保存して、対象のホストを指定。実行履歴は 30 日間保存されます。やりたいことを説明するだけで、AI に実行させることもできます。</p></div>
           <div class="crop"><img src="../assets/shots/welcome-commands-light.webp?v=14" data-shot="welcome-commands" alt="ようこそウインドウのクイックコマンドライブラリ"></div>
         </article>
-        <article class="card c-3 reveal">
+        <article class="card c-2 reveal">
+          <div><h3>踏み台ホスト</h3><p>内部ネットワークのホストには踏み台ホスト経由で接続できます。ホストのフォームで保存済みのホストから 1 台を選ぶと、ターミナル、ファイル、ポートフォワーディング、並列実行のすべてがそのホストを経由します。</p></div>
+          <div class="crop"><img src="../assets/shots/host-jump-light.webp?v=14" data-shot="host-jump" width="1080" height="748" loading="lazy" alt="ホスト編集フォーム：踏み台ホストをオンにして bastion を選択"></div>
+        </article>
+        <article class="card c-2 reveal">
           <div><h3>鍵</h3><p>Ed25519、RSA、ECDSA の鍵を生成またはインポートでき、パスフレーズ付きの秘密鍵にも対応します。鍵はキーチェーンに保存され、iCloud キーチェーンで同期されます。</p></div>
           <div class="crop"><img src="../assets/shots/keys-light.webp?v=14" data-shot="keys" alt="鍵の管理ウインドウ"></div>
         </article>
-        <article class="card c-3 reveal">
+        <article class="card c-2 reveal">
           <div><h3>既知のホストのフィンガープリント</h3><p>初回接続時にホストのフィンガープリントを照合し、変わっていれば接続をブロックします。保存済みのフィンガープリントはここで確認・削除できます。</p></div>
           <div class="crop"><img src="../assets/shots/known-hosts-light.webp?v=14" data-shot="known-hosts" alt="既知のホストのフィンガープリント一覧"></div>
         </article>
@@ -206,25 +210,25 @@
         <p class="sub">ターミナル、ファイル、ポートフォワーディング、クイックコマンド、AI アシスタントは iPhone と iPad でも使えます。ホストと鍵は iCloud で同期。iPhone Duo では、開いたときや横向きにしたときに大画面向けのレイアウトになります。</p>
       </div>
 
-      <!-- 三台设备按真实大小的比例并排、底边对齐（Apple 的营销准则：多台设备一起出现时保持相对大小，互不遮挡）。 -->
+      <!-- 三台设备叠成一组：iPad 在后，Duo 和 iPhone 压在它的两个下角；大小按真实比例（Apple 的营销准则：多台设备一起出现时保持相对大小）。 -->
       <div class="lineup reveal">
-        <figure class="phone ipad">
-          <img src="../assets/shots/ios-ipad-split-light.webp?v=14" data-shot="ios-ipad-split" width="1600" height="1227" loading="lazy" alt="横向きの iPad Pro：ターミナルとリモートファイルを並べて表示">
-          <figcaption>iPad Pro</figcaption>
-        </figure>
-        <figure class="phone duo">
-          <img src="../assets/shots/ios-terminal-light.webp?v=14" data-shot="ios-terminal" width="3093" height="2247" loading="lazy" alt="横向きの iPhone Duo：ターミナルで Claude Code を実行中">
-          <figcaption>iPhone Duo</figcaption>
-        </figure>
-        <figure class="phone iphone">
-          <img src="../assets/shots/ios-iphone-terminal-light.webp?v=14" data-shot="ios-iphone-terminal" width="900" height="1840" loading="lazy" alt="iPhone 18 Pro 上の uTerm ターミナルとキーボードバー">
-          <figcaption>iPhone 18 Pro</figcaption>
-        </figure>
+        <div class="lineup-devices">
+          <figure class="phone ipad">
+            <img src="../assets/shots/ios-ipad-split-light.webp?v=14" data-shot="ios-ipad-split" width="1600" height="1227" loading="lazy" alt="横向きの iPad Pro：ターミナルとリモートファイルを並べて表示">
+          </figure>
+          <figure class="phone duo">
+            <img src="../assets/shots/ios-terminal-light.webp?v=14" data-shot="ios-terminal" width="3093" height="2247" loading="lazy" alt="横向きの iPhone Duo：ターミナルで Claude Code を実行中">
+          </figure>
+          <figure class="phone iphone">
+            <img src="../assets/shots/ios-iphone-terminal-light.webp?v=14" data-shot="ios-iphone-terminal" width="900" height="1840" loading="lazy" alt="iPhone 18 Pro 上の uTerm ターミナルとキーボードバー">
+          </figure>
+        </div>
+        <p class="lineup-names" data-i18n="skip"><span>iPhone Duo</span><span>iPad Pro</span><span>iPhone 18 Pro</span></p>
       </div>
 
       <ul class="points cols reveal">
         <li>
-          <div><h3>セッションはホストに残る</h3><p>シェルはホスト上の常駐プロセスが実行します。バックグラウンドに切り替えたり、ネットワークが変わったり、App がシステムに終了されたりしても、戻ると自動的に復帰し、切断中の出力も補われます。</p></div>
+          <div><h3>セッションはホストに残る</h3><p>Linux ホストでは、シェルはホスト上の常駐プロセスが実行します。バックグラウンドに切り替えたり、ネットワークが変わったり、App がシステムに終了されたりしても、戻ると自動的に復帰し、切断中の出力も補われます。</p></div>
         </li>
         <li>
           <div><h3>キーボードバー</h3><p>esc、tab、ctrl、矢印キーを備え、claude や codex などのよく使うコマンドもすぐに入力できます。クリップボードや写真ライブラリの画像・ビデオを、ホスト上の AI プログラムに送ることもできます。</p></div>
@@ -260,6 +264,8 @@
         <div><b>Mac 上のファイル</b><span>SSH を有効にしなくても、ペアリング済みの Mac 上のファイルを閲覧、アップロード、ダウンロードできます。手元のフォルダを操作先の Mac に共有することもでき、デフォルトでは読み取り専用です。</span></div>
         <div><b>Mac から Mac を操作</b><span>別の Mac から操作するときも、画面、ターミナル、単一ウインドウの表示を同じように使えます。</span></div>
         <div><b>デバイスグループ</b><span>スマートフォン、タブレット、Mac を同じデバイスグループに入れておけば、新しいデバイスはグループ内のどれか 1 台で承認するだけで追加できます。1 台ずつペアリングする必要はありません。</span></div>
+        <div><b>招待でペアリング</b><span>Mac に QR コードまたは招待リンクを表示し、スマートフォンで読み取るか、別の Mac にリンクを貼り付けるだけでペアリングできます。招待にはリレーの設定を含められるので、Apple アカウントやネットワークが違っていてもペアリングできます。</span></div>
+        <div><b>リレーのデプロイ</b><span>設定で「AI にデプロイさせる」をクリックすると、uTerm スキルを入れた AI ツールが保存済みのホストにリレーをインストールし、設定を読み込んで接続を確認します。コマンドひとつでインストールすることもできます。新しいバージョンが出たら、設定からワンクリックでアップデートできます。</span></div>
         <div><b>アップデートしても切れない</b><span>リモート操作は独立したバックグラウンドプロセスで動作します。Mac 上の uTerm がアップデートされたり予期せず終了したりしても、確立済みの接続には影響しません。</span></div>
       </div>
 
@@ -288,7 +294,7 @@
       <div class="paths reveal">
         <div class="path"><header>ローカルネットワークで直接接続</header><p>同じネットワーク内では直接つながるので、遅延が最も小さくなります。</p></div>
         <div class="path"><header>ピアツーピア接続</header><p>同じネットワークにいないときは、まずホールパンチングによる直接接続を試みます。サーバは経由しません。</p></div>
-        <div class="path"><header>セルフホストのリレー</header><p>直接接続できないときは、自分で設置したリレーを経由して転送します。リレーは暗号化されたデータを中継するだけで、内容を読み取ることはできません。</p></div>
+        <div class="path"><header>セルフホストのリレー</header><p>直接接続できないときは、自分のリレーを経由して転送します。リレーは AI に任せて保存済みのホストへデプロイできます。リレーは暗号化されたデータを中継するだけで、内容を読み取ることはできません。</p></div>
       </div>
     </div>
   </section>
@@ -344,14 +350,14 @@
         <p class="sub">uTerm の現在の機能をカテゴリ別にまとめました。</p>
       </div>
       <div class="all-features">
-        <div class="feature-group reveal"><h3>ターミナル</h3><ul><li>Ghostty エンジンによる GPU 描画、Claude Code や Codex などのフルスクリーンプログラムも正しく表示</li><li>タブとドラッグによる分割、レイアウトは再起動後に復元</li><li>ローカルと SSH のターミナルは、uTerm の再起動やアップデート後に自動で復帰</li><li>スクロールバック内の検索（⌘F）</li><li>Claude / Codex の実行状態をタブに表示し、対応が必要なときは通知</li><li>プログラムが動いているタブを閉じる前に確認</li><li>ターミナル ⇄ Agent をワンクリックで切り替え</li></ul></div>
-        <div class="feature-group reveal"><h3>ファイル</h3><ul><li>SFTP ウインドウとワークスペースのサイドバー、複数タブ</li><li>ドラッグ＆ドロップでアップロード／ダウンロード、複数経路で並列転送</li><li>プレビュー、直接編集、⌘S でホストに保存</li><li>手元のアプリで開き、保存すると自動で書き戻し</li><li>SQLite データベースは uTable で開く</li><li>フォルダ削除時は進行状況を表示、途中でキャンセル可能</li></ul></div>
-        <div class="feature-group reveal"><h3>ホストと接続</h3><ul><li>グループ、ピン留め、検索、キーボード操作</li><li>踏み台ホスト、接続テスト、新しいホストとして複製</li><li>~/.ssh/config から読み込み</li><li>Ed25519 / RSA / ECDSA 鍵、キーチェーンに保存</li><li>既知のホストのフィンガープリントを照合</li><li>ポートフォワーディング -L / -R / SOCKS、起動時に自動確立も可能</li></ul></div>
-        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent がコマンドを実行し、結果を読んで結論を提示</li><li>毎回確認 / 読み取り専用は自動 / AI が承認 の 3 段階</li><li>実行カード：承認、進行状況、出力、終了コード</li><li>自分のモデルサービスに接続、モデルと思考の深さを選択</li><li>対話が必要なコマンドは新しいターミナルウインドウで実行</li><li>会話履歴、デフォルトで 180 日間保存</li></ul></div>
+        <div class="feature-group reveal"><h3>ターミナル</h3><ul><li>Ghostty エンジンによる GPU 描画、Claude Code や Codex などのフルスクリーンプログラムも正しく表示</li><li>タブとドラッグによる分割、レイアウトは再起動後に復元</li><li>ローカルと SSH のターミナルは、uTerm の再起動やアップデート後に自動で復帰</li><li>スクロールバック内の検索（⌘F）</li><li>Kitty 画像プロトコルとトゥルーカラーに対応、SSH 経由でも画像を表示</li><li>Claude / Codex の実行状態をタブに表示し、対応が必要なときは通知</li><li>プログラムが動いているタブを閉じる前に確認</li><li>ターミナル ⇄ Agent をワンクリックで切り替え</li></ul></div>
+        <div class="feature-group reveal"><h3>ファイル</h3><ul><li>SFTP ウインドウとワークスペースのサイドバー、複数タブ</li><li>ドラッグ＆ドロップでアップロード／ダウンロード、複数経路で並列転送</li><li>プレビュー、直接編集、⌘S でホストに保存</li><li>プレビュータブ：クリックでプレビュー、ダブルクリックや編集で保持</li><li>手元のアプリで開き、保存すると自動で書き戻し</li><li>SQLite データベースは uTable で開く</li><li>フォルダ削除時は進行状況を表示、途中でキャンセル可能</li></ul></div>
+        <div class="feature-group reveal"><h3>ホストと接続</h3><ul><li>グループ、ピン留め、検索、キーボード操作</li><li>踏み台ホスト経由で内部ネットワークのホストに接続</li><li>接続テスト、新しいホストとして複製</li><li>~/.ssh/config から読み込み</li><li>Ed25519 / RSA / ECDSA 鍵、キーチェーンに保存</li><li>既知のホストのフィンガープリントを照合</li><li>ポートフォワーディング -L / -R / SOCKS、起動時に自動確立も可能</li></ul></div>
+        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent がコマンドを実行し、結果を読んで結論を提示</li><li>毎回確認 / 読み取り専用は自動 / AI が承認 の 3 段階</li><li>実行カード：承認、進行状況、出力、終了コード</li><li>自分のモデルサービスに接続、モデルと思考の深さを選択</li><li>対話が必要なコマンドは新しいターミナルウインドウで実行</li><li>会話はいつでも停止でき、返信中にキューに入れたメッセージもすぐ送信可能</li><li>会話履歴、デフォルトで 180 日間保存</li></ul></div>
         <div class="feature-group reveal"><h3>コマンドラインとスキル</h3><ul><li>utermctl：run / run-many / クイックコマンド</li><li>SFTP の読み書きと転送の再開、ポートフォワーディングの追加・削除</li><li>開いているターミナルセッションの読み取りと入力</li><li>ペアリング済みの Mac 上のファイルにアクセス</li><li>Claude Code、Codex、Cursor、CodeBuddy、Antigravity にスキルをインストール</li><li>デフォルトはオフ、認証情報は uTerm の外に出ない</li></ul></div>
-        <div class="feature-group reveal"><h3>リモート操作</h3><ul><li>ターミナルミラーリング、音声付きのリモートデスクトップ</li><li>ウインドウをひとつだけ表示、スマートフォンの画面に合わせてサイズを調整</li><li>タッチスクリーン / トラックパッドモード、3 本指ジェスチャ</li><li>複数ディスプレイ、8 倍拡大、仮想ディスプレイ</li><li>ロック画面とシステム認証ダイアログをリモートで解除</li><li>ローカルネットワークでの直接接続、ホールパンチング、セルフホストのリレー</li></ul></div>
-        <div class="feature-group reveal"><h3>iPhone と iPad</h3><ul><li>ターミナル、ファイル、転送、クイックコマンド、Agent</li><li>セッションはホストに残り、切断後に自動で復帰</li><li>ダイナミックアイランド、ロック画面での状態表示、離れても実行を継続</li><li>キーボードバー：よく使うキー、コマンドのフレーズ、画像とビデオの送信</li><li>ワークスペースでタブを混在、2 分割表示</li><li>iPhone Duo の折りたたみ、展開、横向きに対応</li></ul></div>
-        <div class="feature-group reveal"><h3>同期とプライバシー</h3><ul><li>ホスト、グループ、鍵、クイックコマンドを iCloud で同期</li><li>ローカルネットワークで暗号化されたプッシュ同期</li><li>環境設定をデバイス間で共有</li><li>Face ID / Touch ID による App ロック</li><li>ログイン後にバックグラウンドで実行可能、Dock には表示しない</li><li>アカウント不要、データ収集なし、オープンソース</li><li>インターフェイスは简体中文、English、繁體中文、日本語、한국어 に対応</li></ul></div>
+        <div class="feature-group reveal"><h3>リモート操作</h3><ul><li>ターミナルミラーリング、音声付きのリモートデスクトップ</li><li>ウインドウをひとつだけ表示、スマートフォンの画面に合わせてサイズを調整</li><li>タッチスクリーン / トラックパッドモード、3 本指ジェスチャ</li><li>複数ディスプレイ、8 倍拡大、仮想ディスプレイ</li><li>ロック画面とシステム認証ダイアログをリモートで解除</li><li>SSH なしで Mac 上のファイルを閲覧、フォルダ共有</li><li>デバイスグループ、QR コードや招待リンクでペアリング</li><li>ローカルネットワークでの直接接続、ホールパンチング、セルフホストのリレー</li><li>リレーは AI が保存済みのホストにデプロイ、ワンクリックでアップデート</li></ul></div>
+        <div class="feature-group reveal"><h3>iPhone と iPad</h3><ul><li>ターミナル、ファイル、転送、クイックコマンド、Agent</li><li>セッションはLinux ホストに残り、切断後に自動で復帰</li><li>ダイナミックアイランド、ロック画面での状態表示、離れても実行を継続</li><li>キーボードバー：よく使うキー、コマンドのフレーズ、画像とビデオの送信</li><li>ワークスペースでタブを混在、2 分割表示</li><li>iPhone Duo の折りたたみ、展開、横向きに対応</li><li>体験用ホスト：サーバがなくてもターミナルとファイルを試せる</li></ul></div>
+        <div class="feature-group reveal"><h3>同期とプライバシー</h3><ul><li>ホスト、グループ、鍵、クイックコマンドを iCloud で同期</li><li>ローカルネットワークで暗号化されたプッシュ同期</li><li>環境設定をデバイス間で共有</li><li>設定で iCloud 同期の状態を確認</li><li>Face ID / Touch ID による App ロック</li><li>アクセス許可ガイド：必要なシステム権限をまとめて説明し、1 か所で許可</li><li>ログイン後にバックグラウンドで実行可能、Dock には表示しない</li><li>アカウント不要、データ収集なし、オープンソース</li><li>インターフェイスは简体中文、English、繁體中文、日本語、한국어 に対応</li></ul></div>
       </div>
     </div>
   </section>
@@ -410,7 +416,7 @@
           </div>
           <div class="platform">
             <h3>iPhone と iPad</h3>
-            <p>iOS / iPadOS 18 以降が必要です。現在は TestFlight でパブリックベータを公開しています。ダイナミックアイランドと「離れても実行を継続」には、より新しいバージョンのシステムが必要です。</p>
+            <p>iOS / iPadOS 18 以降が必要です。現在は TestFlight でパブリックベータを公開しています。ダイナミックアイランドと「離れても実行を継続」には、より新しいバージョンのシステムが必要です。ホストへの接続などには uTerm Pro のサブスクリプションが必要です。未登録でも体験用ホストで試せます。</p>
             <a class="btn btn-ghost" href="https://testflight.apple.com/join/Ep8bfaZT">TestFlight のパブリックベータに参加</a>
           </div>
         </div>
@@ -424,9 +430,10 @@
       <div class="head reveal"><h2>よくある質問</h2></div>
       <div class="faq reveal">
         <details><summary>iPhone / iPad 版はどうやってインストールしますか？</summary><p>現在は TestFlight でパブリックベータを公開しています。iPhone または iPad に TestFlight をインストールしてから<a href="https://testflight.apple.com/join/Ep8bfaZT" target="_blank" rel="noopener">招待リンク</a>を開いて参加してください。以降のベータ版は自動で配信されます。</p></details>
+        <details><summary>uTerm は有料ですか？</summary><p>Mac 版にサブスクリプションは必要ありません。iPhone / iPad 版では、ホストへの接続、リモートファイルを開く操作、Mac のリモート操作、クイックコマンドの実行に uTerm Pro のサブスクリプションが必要です。月額または年額で、年額プランは最初の 1 週間が無料です。価格は App 内の表示をご確認ください。ホスト一覧の表示、設定の変更、体験用ホストの利用にサブスクリプションは必要ありません。TestFlight 版のサブスクリプションは Apple のサンドボックス環境で処理されるため、実際には課金されません。</p></details>
         <details><summary>Termius のようなツールとは何が違いますか？</summary><p>uTerm はアカウント不要で、データはあなた自身の iCloud を通じて同期され、第三者のサーバを経由しません。Mac と iOS のネイティブ App で、コマンドを実行できる AI アシスタントを内蔵し、スマートフォンから Mac のターミナルや画面をリモート操作することもできます。</p></details>
         <details><summary>Windows や Linux には対応していますか？</summary><p>現在対応しているのは macOS（Apple シリコン）と iOS / iPadOS のみです。サーバ側に要件はなく、SSH でログインできるホストならどれにでも接続できます。</p></details>
-        <details><summary>Mac をリモート操作するには何が必要ですか？</summary><p>Mac とスマートフォンの両方に uTerm をインストールしてください。初回のペアリングでは、スマートフォンに表示される確認コードを Mac に入力します。同じローカルネットワーク内では直接接続し、別のネットワークからはまずピアツーピア接続を試みます。失敗した場合は、自分で設置したリレーを経由します（リレーはコマンドひとつで自分のサーバにインストールできます）。</p></details>
+        <details><summary>Mac をリモート操作するには何が必要ですか？</summary><p>Mac とスマートフォンの両方に uTerm をインストールしてください。初回のペアリングでは、スマートフォンに表示される確認コードを Mac に入力します。同じローカルネットワーク内では直接接続し、別のネットワークからはまずピアツーピア接続を試みます。失敗した場合は、自分で設置したリレーを経由します。リレーは設定から AI に任せて保存済みのホストへデプロイできるほか、コマンドひとつでインストールすることもできます。</p></details>
         <details><summary>AI アシスタントは私のデータをどこに送りますか？</summary><p>あなたが設定したモデルサービスにだけ、あなたの API キーを使って送信します。設定していなければ、何も送信しません。</p></details>
         <details><summary>問題はどこで報告できますか？</summary><p><a href="https://github.com/uozi-tech/uTerm/issues" target="_blank" rel="noopener">GitHub Issues</a> で報告してください。セキュリティ上の問題は、<a href="https://github.com/uozi-tech/uTerm/blob/main/SECURITY.md" target="_blank" rel="noopener">SECURITY.md</a> の手順に従って非公開で報告してください。</p></details>
       </div>
@@ -438,7 +445,7 @@
   <div class="wrap">
     <a class="brand" href="#top"><img src="../assets/icon-256.png" alt=""><span class="wordmark">u<b>Term</b></span></a>
     <span>© 2026 Uozi Tech (Shenzhen) Co., Ltd.</span>
-    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号</a>
+    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号-1</a>
     <nav aria-label="フッター">
       <a href="https://github.com/uozi-tech/uTerm" target="_blank" rel="noopener">GitHub</a>
       <a href="https://github.com/uozi-tech/uTerm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">更新履歴</a>
@@ -448,6 +455,6 @@
   </div>
 </footer>
 
-<script src="../main.js?v=30"></script>
+<script src="../main.js?v=32"></script>
 </body>
 </html>

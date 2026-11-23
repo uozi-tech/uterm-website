@@ -51,7 +51,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=30">
+  <link rel="stylesheet" href="../styles.css?v=32">
 </head>
 <body>
 
@@ -141,7 +141,7 @@
               <div><h3>Terminals That Survive Restarts</h3><p>Local terminals are held by a separate process. If uTerm updates or quits unexpectedly, the programs in your terminals keep running and are there when you reopen it.</p></div>
             </li>
             <li>
-              <div><h3>Automatic Reconnect</h3><p>On iPhone, your shell keeps running on the host. When you reconnect, uTerm picks it right back up and fills in the output you missed.</p></div>
+              <div><h3>Automatic Reconnect</h3><p>On iPhone, your shell keeps running on Linux hosts. When you reconnect, uTerm picks it right back up and fills in the output you missed.</p></div>
             </li>
           </ul>
         </div>
@@ -179,18 +179,22 @@
           <div class="crop"><img src="../assets/shots/parallel-shell-light.webp?v=14" data-shot="parallel-shell" alt="Parallel Run window: disk usage across six hosts"></div>
         </article>
         <article class="card c-3 reveal">
-          <div><h3>Hosts and Groups</h3><p>Group hosts by purpose, with support for jump hosts. Test the connection before you save, duplicate an existing host, or import from ~/.ssh/config.</p></div>
+          <div><h3>Hosts and Groups</h3><p>Group hosts by purpose, pin the ones you use most, and search. Test the connection before you save, duplicate an existing host, or import from ~/.ssh/config.</p></div>
           <div class="crop"><img src="../assets/shots/welcome-hosts-light.webp?v=14" data-shot="welcome-hosts" alt="Host list in the Welcome window"></div>
         </article>
         <article class="card c-3 reveal">
           <div><h3>Quick Commands</h3><p>Save the commands you use most along with their target hosts. Run history is kept for 30 days. Or just describe what you want done, and let AI run it.</p></div>
           <div class="crop"><img src="../assets/shots/welcome-commands-light.webp?v=14" data-shot="welcome-commands" alt="Quick Commands library in the Welcome window"></div>
         </article>
-        <article class="card c-3 reveal">
+        <article class="card c-2 reveal">
+          <div><h3>Jump Hosts</h3><p>Reach hosts on a private network through a jump host: pick one of your saved hosts in the host form, and the terminal, files, port forwarding, and parallel runs all go through it.</p></div>
+          <div class="crop"><img src="../assets/shots/host-jump-light.webp?v=14" data-shot="host-jump" width="1080" height="748" loading="lazy" alt="Edit Host form with the jump host turned on and bastion selected"></div>
+        </article>
+        <article class="card c-2 reveal">
           <div><h3>Keys</h3><p>Generate or import Ed25519, RSA, and ECDSA keys, including passphrase-protected private keys. Keys are stored in your Keychain and sync through iCloud Keychain.</p></div>
           <div class="crop"><img src="../assets/shots/keys-light.webp?v=14" data-shot="keys" alt="Key management window"></div>
         </article>
-        <article class="card c-3 reveal">
+        <article class="card c-2 reveal">
           <div><h3>Known Host Fingerprints</h3><p>uTerm checks the host fingerprint on first connection and blocks the connection if it ever changes. View and delete saved fingerprints here.</p></div>
           <div class="crop"><img src="../assets/shots/known-hosts-light.webp?v=14" data-shot="known-hosts" alt="Known host fingerprint list"></div>
         </article>
@@ -206,25 +210,25 @@
         <p class="sub">The terminal, files, port forwarding, Quick Commands, and the AI assistant all work on iPhone and iPad, with hosts and keys synced through iCloud. On iPhone Duo, the layout switches to the large-screen design when unfolded or held in landscape.</p>
       </div>
 
-      <!-- 三台设备按真实大小的比例并排、底边对齐（Apple 的营销准则：多台设备一起出现时保持相对大小，互不遮挡）。 -->
+      <!-- 三台设备叠成一组：iPad 在后，Duo 和 iPhone 压在它的两个下角；大小按真实比例（Apple 的营销准则：多台设备一起出现时保持相对大小）。 -->
       <div class="lineup reveal">
-        <figure class="phone ipad">
-          <img src="../assets/shots/ios-ipad-split-light.webp?v=14" data-shot="ios-ipad-split" width="1600" height="1227" loading="lazy" alt="iPad Pro in landscape: terminal and remote files side by side">
-          <figcaption>iPad Pro</figcaption>
-        </figure>
-        <figure class="phone duo">
-          <img src="../assets/shots/ios-terminal-light.webp?v=14" data-shot="ios-terminal" width="3093" height="2247" loading="lazy" alt="iPhone Duo in landscape: Claude Code running in the terminal">
-          <figcaption>iPhone Duo</figcaption>
-        </figure>
-        <figure class="phone iphone">
-          <img src="../assets/shots/ios-iphone-terminal-light.webp?v=14" data-shot="ios-iphone-terminal" width="900" height="1840" loading="lazy" alt="uTerm terminal and keyboard bar on iPhone 18 Pro">
-          <figcaption>iPhone 18 Pro</figcaption>
-        </figure>
+        <div class="lineup-devices">
+          <figure class="phone ipad">
+            <img src="../assets/shots/ios-ipad-split-light.webp?v=14" data-shot="ios-ipad-split" width="1600" height="1227" loading="lazy" alt="iPad Pro in landscape: terminal and remote files side by side">
+          </figure>
+          <figure class="phone duo">
+            <img src="../assets/shots/ios-terminal-light.webp?v=14" data-shot="ios-terminal" width="3093" height="2247" loading="lazy" alt="iPhone Duo in landscape: Claude Code running in the terminal">
+          </figure>
+          <figure class="phone iphone">
+            <img src="../assets/shots/ios-iphone-terminal-light.webp?v=14" data-shot="ios-iphone-terminal" width="900" height="1840" loading="lazy" alt="uTerm terminal and keyboard bar on iPhone 18 Pro">
+          </figure>
+        </div>
+        <p class="lineup-names" data-i18n="skip"><span>iPhone Duo</span><span>iPad Pro</span><span>iPhone 18 Pro</span></p>
       </div>
 
       <ul class="points cols reveal">
         <li>
-          <div><h3>Sessions Stay on the Host</h3><p>Your shell runs in a persistent process on the host. Switch to another app, change networks, or even have the app closed by the system: when you come back, uTerm reconnects and fills in the output you missed.</p></div>
+          <div><h3>Sessions Stay on the Host</h3><p>On Linux hosts, your shell runs in a persistent process on the host. Switch to another app, change networks, or even have the app closed by the system: when you come back, uTerm reconnects and fills in the output you missed.</p></div>
         </li>
         <li>
           <div><h3>Keyboard Bar</h3><p>Gives you esc, tab, ctrl, and arrow keys, inserts common commands like claude and codex, and sends images and videos from your clipboard or photo library to AI programs on the host.</p></div>
@@ -260,6 +264,8 @@
         <div><b>Files on Your Mac</b><span>Browse, upload, and download files on a paired Mac without turning on SSH. You can also share a local folder with the Mac you're controlling, read-only by default.</span></div>
         <div><b>Mac to Mac</b><span>When another Mac is the controller, the screen, terminals, and single-window viewing all work just the same.</span></div>
         <div><b>Device Group</b><span>Once your phone, tablet, and Mac join the same device group, any device in the group can approve a new one. No need to pair each device one by one.</span></div>
+        <div><b>Pair by Invitation</b><span>Show a QR code or invitation link on your Mac, then scan it with your phone or paste the link on another Mac. An invitation can carry your relay configuration, so pairing works across Apple Accounts and across networks.</span></div>
+        <div><b>Deploy a Relay</b><span>Click “Let AI Deploy” in Settings, and an AI tool with the uTerm skill installs the relay on one of your saved hosts, imports its configuration, and checks the connection. You can also install it with a single command. When a new version is out, update it from Settings in one click.</span></div>
         <div><b>Stays Connected Through Updates</b><span>Remote Control runs in its own background process, so existing connections stay up when uTerm on your Mac updates or quits unexpectedly.</span></div>
       </div>
 
@@ -288,7 +294,7 @@
       <div class="paths reveal">
         <div class="path"><header>Direct LAN Connection</header><p>On the same network, devices connect directly for the lowest latency.</p></div>
         <div class="path"><header>Peer-to-Peer</header><p>On different networks, uTerm first tries hole punching for a direct connection, with no server in between.</p></div>
-        <div class="path"><header>Self-Hosted Relay</header><p>When a direct connection isn't possible, traffic goes through a relay you deploy yourself. The relay only forwards encrypted data and can't read what's inside.</p></div>
+        <div class="path"><header>Self-Hosted Relay</header><p>When a direct connection isn't possible, traffic goes through your own relay, which AI can deploy to one of your saved hosts. The relay only forwards encrypted data and can't read what's inside.</p></div>
       </div>
     </div>
   </section>
@@ -344,14 +350,14 @@
         <p class="sub">Everything uTerm can do today, by category.</p>
       </div>
       <div class="all-features">
-        <div class="feature-group reveal"><h3>Terminal</h3><ul><li>Ghostty engine, GPU rendering, full-screen programs like Claude Code and Codex display correctly</li><li>Tabs and drag-to-split, layout restored after restart</li><li>Local and SSH terminals reconnect automatically after uTerm restarts or updates</li><li>Search scrollback (⌘F)</li><li>Claude / Codex status on tabs, with a notification when they need you</li><li>Confirmation before closing a tab with programs still running</li><li>Switch between Terminal ⇄ Agent in one click</li></ul></div>
-        <div class="feature-group reveal"><h3>Files</h3><ul><li>SFTP window and workspace sidebar, with tabs</li><li>Drag-and-drop upload and download, parallel transfers</li><li>Preview and edit in place, ⌘S saves back to the host</li><li>Open in local apps, changes sent back on save</li><li>Open SQLite databases in uTable</li><li>Progress shown when deleting folders, cancel anytime</li></ul></div>
-        <div class="feature-group reveal"><h3>Hosts and Connections</h3><ul><li>Groups, pinning, search, keyboard navigation</li><li>Jump hosts, connection testing, duplicate as a new host</li><li>Import from ~/.ssh/config</li><li>Ed25519 / RSA / ECDSA keys, stored in Keychain</li><li>Known host fingerprint verification</li><li>Port forwarding -L / -R / SOCKS, can start automatically at launch</li></ul></div>
-        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent runs commands, reads results, and reports its findings</li><li>Three levels: Confirm Every Step / Auto Read-Only / AI Approves</li><li>Execution cards: approval, progress, output, exit code</li><li>Bring your own model provider, choose model and reasoning effort</li><li>Interactive commands run in a new terminal window</li><li>Conversation history, kept for 180 days by default</li></ul></div>
+        <div class="feature-group reveal"><h3>Terminal</h3><ul><li>Ghostty engine, GPU rendering, full-screen programs like Claude Code and Codex display correctly</li><li>Tabs and drag-to-split, layout restored after restart</li><li>Local and SSH terminals reconnect automatically after uTerm restarts or updates</li><li>Search scrollback (⌘F)</li><li>Kitty graphics protocol and true color, so images display over SSH too</li><li>Claude / Codex status on tabs, with a notification when they need you</li><li>Confirmation before closing a tab with programs still running</li><li>Switch between Terminal ⇄ Agent in one click</li></ul></div>
+        <div class="feature-group reveal"><h3>Files</h3><ul><li>SFTP window and workspace sidebar, with tabs</li><li>Drag-and-drop upload and download, parallel transfers</li><li>Preview and edit in place, ⌘S saves back to the host</li><li>Preview tabs: single-click to preview, double-click or edit to keep</li><li>Open in local apps, changes sent back on save</li><li>Open SQLite databases in uTable</li><li>Progress shown when deleting folders, cancel anytime</li></ul></div>
+        <div class="feature-group reveal"><h3>Hosts and Connections</h3><ul><li>Groups, pinning, search, keyboard navigation</li><li>Connect to private-network hosts through a jump host</li><li>Connection testing, duplicate as a new host</li><li>Import from ~/.ssh/config</li><li>Ed25519 / RSA / ECDSA keys, stored in Keychain</li><li>Known host fingerprint verification</li><li>Port forwarding -L / -R / SOCKS, can start automatically at launch</li></ul></div>
+        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent runs commands, reads results, and reports its findings</li><li>Three levels: Confirm Every Step / Auto Read-Only / AI Approves</li><li>Execution cards: approval, progress, output, exit code</li><li>Bring your own model provider, choose model and reasoning effort</li><li>Interactive commands run in a new terminal window</li><li>Stop a conversation anytime; send queued messages right away during a reply</li><li>Conversation history, kept for 180 days by default</li></ul></div>
         <div class="feature-group reveal"><h3>Command Line and Skills</h3><ul><li>utermctl: run / run-many / Quick Commands</li><li>SFTP read/write with resumable transfers, add and remove port forwards</li><li>Read open terminal sessions and send them input</li><li>Access files on paired Macs</li><li>Install skills for Claude Code, Codex, Cursor, CodeBuddy, and Antigravity</li><li>Off by default, credentials never leave uTerm</li></ul></div>
-        <div class="feature-group reveal"><h3>Remote Control</h3><ul><li>Terminal mirroring, Remote Desktop with audio</li><li>View a single window, resized to fit your phone</li><li>Touchscreen / trackpad modes, three-finger gestures</li><li>Multiple displays, 8× zoom, virtual display</li><li>Remote unlock for the Lock Screen and system authentication dialogs</li><li>Direct LAN, hole punching, self-hosted relay</li></ul></div>
-        <div class="feature-group reveal"><h3>iPhone and iPad</h3><ul><li>Terminal, files, forwarding, Quick Commands, and Agent</li><li>Sessions stay on the host and reconnect automatically</li><li>Dynamic Island and Lock Screen status, Keep Running After You Leave</li><li>Keyboard bar: common keys, command phrases, send images and videos</li><li>Terminal and file tabs mixed in one workspace, two-pane split</li><li>Adapts to iPhone Duo folded, unfolded, and in landscape</li></ul></div>
-        <div class="feature-group reveal"><h3>Sync and Privacy</h3><ul><li>iCloud sync for hosts, groups, keys, and Quick Commands</li><li>Encrypted push sync over the local network</li><li>Preferences shared across your devices</li><li>Face ID / Touch ID app lock</li><li>Can run in the background after login, hidden from the Dock</li><li>No account, no data collection, open source</li><li>Interface available in 简体中文, English, 繁體中文, 日本語, and 한국어</li></ul></div>
+        <div class="feature-group reveal"><h3>Remote Control</h3><ul><li>Terminal mirroring, Remote Desktop with audio</li><li>View a single window, resized to fit your phone</li><li>Touchscreen / trackpad modes, three-finger gestures</li><li>Multiple displays, 8× zoom, virtual display</li><li>Remote unlock for the Lock Screen and system authentication dialogs</li><li>Browse files on your Mac without SSH, plus folder sharing</li><li>Device group, pairing by QR code or invitation link</li><li>Direct LAN, hole punching, self-hosted relay</li><li>AI deploys the relay to a saved host, with one-click updates</li></ul></div>
+        <div class="feature-group reveal"><h3>iPhone and iPad</h3><ul><li>Terminal, files, forwarding, Quick Commands, and Agent</li><li>Sessions stay on Linux hosts and reconnect automatically</li><li>Dynamic Island and Lock Screen status, Keep Running After You Leave</li><li>Keyboard bar: common keys, command phrases, send images and videos</li><li>Terminal and file tabs mixed in one workspace, two-pane split</li><li>Adapts to iPhone Duo folded, unfolded, and in landscape</li><li>Demo host: try the terminal and files without a server</li></ul></div>
+        <div class="feature-group reveal"><h3>Sync and Privacy</h3><ul><li>iCloud sync for hosts, groups, keys, and Quick Commands</li><li>Encrypted push sync over the local network</li><li>Preferences shared across your devices</li><li>iCloud sync status in Settings</li><li>Face ID / Touch ID app lock</li><li>Permission Guide: every system permission explained and granted in one place</li><li>Can run in the background after login, hidden from the Dock</li><li>No account, no data collection, open source</li><li>Interface available in 简体中文, English, 繁體中文, 日本語, and 한국어</li></ul></div>
       </div>
     </div>
   </section>
@@ -410,7 +416,7 @@
           </div>
           <div class="platform">
             <h3>iPhone and iPad</h3>
-            <p>Requires iOS / iPadOS 18 or later. Currently available as a public beta through TestFlight. Dynamic Island and “Keep Running After You Leave” require a newer OS version.</p>
+            <p>Requires iOS / iPadOS 18 or later. Currently available as a public beta through TestFlight. Dynamic Island and “Keep Running After You Leave” require a newer OS version. Connecting to hosts requires a uTerm Pro subscription; without one, you can try things out on the demo host.</p>
             <a class="btn btn-ghost" href="https://testflight.apple.com/join/Ep8bfaZT">Join the TestFlight Public Beta</a>
           </div>
         </div>
@@ -424,9 +430,10 @@
       <div class="head reveal"><h2>FAQ</h2></div>
       <div class="faq reveal">
         <details><summary>How do I install the iPhone and iPad version?</summary><p>It's currently in public beta through TestFlight. Install TestFlight on your iPhone or iPad, then open the <a href="https://testflight.apple.com/join/Ep8bfaZT" target="_blank" rel="noopener">invitation link</a> to join. New beta builds will arrive automatically after that.</p></details>
+        <details><summary>Is uTerm free?</summary><p>The Mac version needs no subscription. On iPhone and iPad, connecting to hosts, opening remote files, controlling a Mac remotely, and running quick commands require a uTerm Pro subscription, billed monthly or yearly. The yearly plan starts with a one-week free trial, and the price for your region is shown in the app. Browsing your host list, changing settings, and using the demo host don't require a subscription. In TestFlight builds, subscriptions go through Apple's sandbox, so you aren't actually charged.</p></details>
         <details><summary>How is it different from tools like Termius?</summary><p>uTerm needs no account, and your data syncs through your own iCloud, never through third-party servers. It's a native app for Mac and iOS with a built-in AI assistant that can run commands, and it lets you control your Mac's terminals and screen from your phone.</p></details>
         <details><summary>Does it support Windows or Linux?</summary><p>For now, uTerm runs only on macOS (Apple silicon) and iOS / iPadOS. There are no server-side requirements: any host you can log in to over SSH will work.</p></details>
-        <details><summary>What do I need to control my Mac remotely?</summary><p>Install uTerm on both your Mac and your phone. The first time you pair them, enter the verification code shown on your phone into your Mac. On the same local network they connect directly. Across networks, uTerm first tries a peer-to-peer connection, and if that fails, goes through a relay you deploy yourself (a single command installs it on your server).</p></details>
+        <details><summary>What do I need to control my Mac remotely?</summary><p>Install uTerm on both your Mac and your phone. The first time you pair them, enter the verification code shown on your phone into your Mac. On the same local network they connect directly. Across networks, uTerm first tries a peer-to-peer connection, and if that fails, goes through a relay you deploy yourself: let AI deploy it to one of your saved hosts from Settings, or install it with a single command.</p></details>
         <details><summary>Where does the AI assistant send my data?</summary><p>Only to the model provider you set up, using your own API key. If you haven't set one up, nothing is sent.</p></details>
         <details><summary>Where can I report issues?</summary><p>Please file them on <a href="https://github.com/uozi-tech/uTerm/issues" target="_blank" rel="noopener">GitHub Issues</a>. For security issues, report privately as described in <a href="https://github.com/uozi-tech/uTerm/blob/main/SECURITY.md" target="_blank" rel="noopener">SECURITY.md</a>.</p></details>
       </div>
@@ -438,7 +445,7 @@
   <div class="wrap">
     <a class="brand" href="#top"><img src="../assets/icon-256.png" alt=""><span class="wordmark">u<b>Term</b></span></a>
     <span>© 2026 Uozi Tech (Shenzhen) Co., Ltd.</span>
-    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号</a>
+    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号-1</a>
     <nav aria-label="Footer">
       <a href="https://github.com/uozi-tech/uTerm" target="_blank" rel="noopener">GitHub</a>
       <a href="https://github.com/uozi-tech/uTerm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
@@ -448,6 +455,6 @@
   </div>
 </footer>
 
-<script src="../main.js?v=30"></script>
+<script src="../main.js?v=32"></script>
 </body>
 </html>

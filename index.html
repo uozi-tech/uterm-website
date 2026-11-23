@@ -51,7 +51,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=30">
+  <link rel="stylesheet" href="styles.css?v=32">
 </head>
 <body>
 
@@ -141,7 +141,7 @@
               <div><h3>重启后接回终端</h3><p>本机终端由独立进程持有。uTerm 更新或意外退出后重新打开，终端里的程序不受影响。</p></div>
             </li>
             <li>
-              <div><h3>断线后自动接回</h3><p>在 iPhone 上，shell 留在主机上运行。重新连接后自动接回，并补上断开期间的输出。</p></div>
+              <div><h3>断线后自动接回</h3><p>在 iPhone 上，shell 留在 Linux 主机上运行。重新连接后自动接回，并补上断开期间的输出。</p></div>
             </li>
           </ul>
         </div>
@@ -179,18 +179,22 @@
           <div class="crop"><img src="assets/shots/parallel-shell-light.webp?v=14" data-shot="parallel-shell" alt="并行执行窗口：六台主机的磁盘水位"></div>
         </article>
         <article class="card c-3 reveal">
-          <div><h3>主机与分组</h3><p>按用途分组，支持跳板机。新建时可先测试连接，也可复制已有主机，或从 ~/.ssh/config 导入。</p></div>
+          <div><h3>主机与分组</h3><p>主机按用途分组，可置顶和搜索。新建时可先测试连接，也可复制已有主机，或从 ~/.ssh/config 导入。</p></div>
           <div class="crop"><img src="assets/shots/welcome-hosts-light.webp?v=14" data-shot="welcome-hosts" alt="欢迎窗口的主机列表"></div>
         </article>
         <article class="card c-3 reveal">
           <div><h3>快捷命令</h3><p>保存常用命令并指定目标主机，执行记录保留 30 天。也可以只描述目标，由 AI 执行。</p></div>
           <div class="crop"><img src="assets/shots/welcome-commands-light.webp?v=14" data-shot="welcome-commands" alt="欢迎窗口的快捷命令库"></div>
         </article>
-        <article class="card c-3 reveal">
+        <article class="card c-2 reveal">
+          <div><h3>跳板机</h3><p>内网里的主机可以经跳板机连接：在主机表单里从已保存的主机中选一台，终端、文件、端口转发和并行执行都经它中转。</p></div>
+          <div class="crop"><img src="assets/shots/host-jump-light.webp?v=14" data-shot="host-jump" width="1080" height="748" loading="lazy" alt="编辑主机的表单：跳板机已打开，选中了 bastion"></div>
+        </article>
+        <article class="card c-2 reveal">
           <div><h3>密钥</h3><p>生成或导入 Ed25519、RSA、ECDSA 密钥，支持带口令的私钥。密钥存放在钥匙串中，经 iCloud 钥匙串同步。</p></div>
           <div class="crop"><img src="assets/shots/keys-light.webp?v=14" data-shot="keys" alt="密钥管理窗口"></div>
         </article>
-        <article class="card c-3 reveal">
+        <article class="card c-2 reveal">
           <div><h3>已知主机指纹</h3><p>首次连接时核对主机指纹，指纹变化时阻止连接。已保存的指纹可在此查看和删除。</p></div>
           <div class="crop"><img src="assets/shots/known-hosts-light.webp?v=14" data-shot="known-hosts" alt="已知主机指纹列表"></div>
         </article>
@@ -206,25 +210,25 @@
         <p class="sub">终端、文件、端口转发、快捷命令和 AI 助手在 iPhone 与 iPad 上同样可用，主机和密钥经 iCloud 同步。iPhone Duo 展开或横握时按大屏排版。</p>
       </div>
 
-      <!-- 三台设备按真实大小的比例并排、底边对齐（Apple 的营销准则：多台设备一起出现时保持相对大小，互不遮挡）。 -->
+      <!-- 三台设备叠成一组：iPad 在后，Duo 和 iPhone 压在它的两个下角；大小按真实比例（Apple 的营销准则：多台设备一起出现时保持相对大小）。 -->
       <div class="lineup reveal">
-        <figure class="phone ipad">
-          <img src="assets/shots/ios-ipad-split-light.webp?v=14" data-shot="ios-ipad-split" width="1600" height="1227" loading="lazy" alt="iPad Pro 横握：终端和远程文件并排">
-          <figcaption>iPad Pro</figcaption>
-        </figure>
-        <figure class="phone duo">
-          <img src="assets/shots/ios-terminal-light.webp?v=14" data-shot="ios-terminal" width="3093" height="2247" loading="lazy" alt="iPhone Duo 横握：终端里在跑 Claude Code">
-          <figcaption>iPhone Duo</figcaption>
-        </figure>
-        <figure class="phone iphone">
-          <img src="assets/shots/ios-iphone-terminal-light.webp?v=14" data-shot="ios-iphone-terminal" width="900" height="1840" loading="lazy" alt="iPhone 18 Pro 上的 uTerm 终端与键盘条">
-          <figcaption>iPhone 18 Pro</figcaption>
-        </figure>
+        <div class="lineup-devices">
+          <figure class="phone ipad">
+            <img src="assets/shots/ios-ipad-split-light.webp?v=14" data-shot="ios-ipad-split" width="1600" height="1227" loading="lazy" alt="iPad Pro 横握：终端和远程文件并排">
+          </figure>
+          <figure class="phone duo">
+            <img src="assets/shots/ios-terminal-light.webp?v=14" data-shot="ios-terminal" width="3093" height="2247" loading="lazy" alt="iPhone Duo 横握：终端里在跑 Claude Code">
+          </figure>
+          <figure class="phone iphone">
+            <img src="assets/shots/ios-iphone-terminal-light.webp?v=14" data-shot="ios-iphone-terminal" width="900" height="1840" loading="lazy" alt="iPhone 18 Pro 上的 uTerm 终端与键盘条">
+          </figure>
+        </div>
+        <p class="lineup-names" data-i18n="skip"><span>iPhone Duo</span><span>iPad Pro</span><span>iPhone 18 Pro</span></p>
       </div>
 
       <ul class="points cols reveal">
         <li>
-          <div><h3>会话保留在主机上</h3><p>shell 由主机上的保持进程运行。切到后台、切换网络或 App 被系统结束后，回来时自动接回，并补上断开期间的输出。</p></div>
+          <div><h3>会话保留在主机上</h3><p>在 Linux 主机上，shell 由主机上的保持进程运行。切到后台、切换网络或 App 被系统结束后，回来时自动接回，并补上断开期间的输出。</p></div>
         </li>
         <li>
           <div><h3>键盘条</h3><p>提供 esc、tab、ctrl 和方向键，可填入 claude、codex 等常用命令，并能把剪贴板或相册里的图片、视频发送给主机上的 AI 程序。</p></div>
@@ -260,6 +264,8 @@
         <div><b>Mac 上的文件</b><span>无需开启 SSH 即可浏览、上传和下载已配对 Mac 上的文件。也可以把本机文件夹共享给被控的 Mac，默认只读。</span></div>
         <div><b>Mac 控制 Mac</b><span>用另一台 Mac 作控制端时，屏幕、终端和单窗口查看同样可用。</span></div>
         <div><b>设备组</b><span>手机、平板和 Mac 加入同一个设备组后，组内任意一台设备确认即可添加新设备，无需逐台配对。</span></div>
+        <div><b>邀请配对</b><span>在 Mac 上显示二维码或邀请链接，手机扫码、另一台 Mac 粘贴链接即可配对。邀请里可带上中继配置，不同 Apple ID、不在同一网络也能配对。</span></div>
+        <div><b>部署中继</b><span>在设置里点「让 AI 部署」，装了 uTerm 技能的 AI 工具会把中继装到你已保存的一台主机上，导入配置并测通；也可以用一条命令安装。有新版本时可在设置里一键更新。</span></div>
         <div><b>更新时不断开</b><span>远程控制运行在独立的后台进程中，Mac 上的 uTerm 更新或意外退出时，已有连接不受影响。</span></div>
       </div>
 
@@ -288,7 +294,7 @@
       <div class="paths reveal">
         <div class="path"><header>局域网直连</header><p>同一网络内直接连接，延迟最低。</p></div>
         <div class="path"><header>点对点连接</header><p>不在同一网络时，先尝试打洞直连，不经过服务器。</p></div>
-        <div class="path"><header>自建中继</header><p>无法直连时经由自行部署的中继转发。中继只转发加密数据，无法读取内容。</p></div>
+        <div class="path"><header>自建中继</header><p>无法直连时经由自己的中继转发，可让 AI 部署到已保存的主机上。中继只转发加密数据，无法读取内容。</p></div>
       </div>
     </div>
   </section>
@@ -344,14 +350,14 @@
         <p class="sub">按类别列出 uTerm 目前的功能。</p>
       </div>
       <div class="all-features">
-        <div class="feature-group reveal"><h3>终端</h3><ul><li>Ghostty 引擎，GPU 绘制，Claude Code、Codex 等全屏程序显示正确</li><li>标签页、拖拽分屏，布局重启后还原</li><li>本机终端和 SSH 终端在 uTerm 重启、更新后自动接回</li><li>回滚内容里查找（⌘F）</li><li>Claude / Codex 运行状态显示在标签上，需要你处理时发通知</li><li>关闭仍有程序运行的标签页前确认</li><li>终端 ⇄ Agent 一键切换</li></ul></div>
-        <div class="feature-group reveal"><h3>文件</h3><ul><li>SFTP 窗口与工作区侧栏，多标签</li><li>拖放上传下载，多路并行传输</li><li>预览、直接编辑，⌘S 存回主机</li><li>用本机应用打开，保存后自动传回</li><li>SQLite 数据库交给 uTable 打开</li><li>删除文件夹时显示进度，可中途取消</li></ul></div>
-        <div class="feature-group reveal"><h3>主机与连接</h3><ul><li>分组、置顶、搜索、键盘操作</li><li>跳板机、测试连接、复制为新主机</li><li>从 ~/.ssh/config 导入</li><li>Ed25519 / RSA / ECDSA 密钥，存钥匙串</li><li>已知主机指纹核对</li><li>端口转发 -L / -R / SOCKS，可随启动自动建立</li></ul></div>
-        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent 执行命令、读取结果并给出结论</li><li>每步确认 / 只读自动 / AI 代批三档</li><li>执行卡片：审批、进度、输出、退出码</li><li>接自己的模型服务，可选模型和思考深度</li><li>需要交互的命令在新终端窗口中运行</li><li>会话历史，默认保留 180 天</li></ul></div>
+        <div class="feature-group reveal"><h3>终端</h3><ul><li>Ghostty 引擎，GPU 绘制，Claude Code、Codex 等全屏程序显示正确</li><li>标签页、拖拽分屏，布局重启后还原</li><li>本机终端和 SSH 终端在 uTerm 重启、更新后自动接回</li><li>回滚内容里查找（⌘F）</li><li>Kitty 图片协议与真彩色，经 SSH 也能显示图片</li><li>Claude / Codex 运行状态显示在标签上，需要你处理时发通知</li><li>关闭仍有程序运行的标签页前确认</li><li>终端 ⇄ Agent 一键切换</li></ul></div>
+        <div class="feature-group reveal"><h3>文件</h3><ul><li>SFTP 窗口与工作区侧栏，多标签</li><li>拖放上传下载，多路并行传输</li><li>预览、直接编辑，⌘S 存回主机</li><li>预览标签页：单击预览，双击或编辑后保留</li><li>用本机应用打开，保存后自动传回</li><li>SQLite 数据库交给 uTable 打开</li><li>删除文件夹时显示进度，可中途取消</li></ul></div>
+        <div class="feature-group reveal"><h3>主机与连接</h3><ul><li>分组、置顶、搜索、键盘操作</li><li>经跳板机连接内网主机</li><li>测试连接、复制为新主机</li><li>从 ~/.ssh/config 导入</li><li>Ed25519 / RSA / ECDSA 密钥，存钥匙串</li><li>已知主机指纹核对</li><li>端口转发 -L / -R / SOCKS，可随启动自动建立</li></ul></div>
+        <div class="feature-group reveal"><h3>AI</h3><ul><li>Agent 执行命令、读取结果并给出结论</li><li>每步确认 / 只读自动 / AI 代批三档</li><li>执行卡片：审批、进度、输出、退出码</li><li>接自己的模型服务，可选模型和思考深度</li><li>需要交互的命令在新终端窗口中运行</li><li>随时停止对话，回复期间排队的消息可立即发送</li><li>会话历史，默认保留 180 天</li></ul></div>
         <div class="feature-group reveal"><h3>命令行与技能</h3><ul><li>utermctl：run / run-many / 快捷命令</li><li>SFTP 读写与断点续传，端口转发增删</li><li>读取打开的终端会话并向其输入</li><li>访问配对过的 Mac 上的文件</li><li>为 Claude Code、Codex、Cursor、CodeBuddy、Antigravity 安装技能</li><li>默认关闭，凭据不离开 uTerm</li></ul></div>
-        <div class="feature-group reveal"><h3>远程控制</h3><ul><li>终端镜像、远程桌面带声音</li><li>只看一个窗口，按手机屏幕调大小</li><li>触摸屏 / 触控板模式，三指手势</li><li>多显示器、放大 8 倍、虚拟屏</li><li>锁屏与系统验证框远程解锁</li><li>局域网直连、打洞、自建中继</li></ul></div>
-        <div class="feature-group reveal"><h3>iPhone 与 iPad</h3><ul><li>终端、文件、转发、快捷命令和 Agent</li><li>会话保留在主机上，断线后自动接回</li><li>灵动岛、锁屏状态，离开后继续运行</li><li>键盘条：常用键、命令短语、发送图片和视频</li><li>工作区标签混排、两格分屏</li><li>适配 iPhone Duo 的折叠、展开与横握</li></ul></div>
-        <div class="feature-group reveal"><h3>同步与隐私</h3><ul><li>iCloud 同步主机、分组、密钥、快捷命令</li><li>局域网加密推送同步</li><li>偏好设置在各设备间共享</li><li>面容 ID / 触控 ID 应用锁</li><li>可在登录后于后台运行，不显示在 Dock</li><li>无需账号，不收集数据，代码开源</li><li>界面支持简体中文、English、繁體中文、日本語、한국어</li></ul></div>
+        <div class="feature-group reveal"><h3>远程控制</h3><ul><li>终端镜像、远程桌面带声音</li><li>只看一个窗口，按手机屏幕调大小</li><li>触摸屏 / 触控板模式，三指手势</li><li>多显示器、放大 8 倍、虚拟屏</li><li>锁屏与系统验证框远程解锁</li><li>不开 SSH 浏览 Mac 上的文件，文件夹共享</li><li>设备组，二维码或邀请链接配对</li><li>局域网直连、打洞、自建中继</li><li>中继可让 AI 部署到已保存的主机，一键更新</li></ul></div>
+        <div class="feature-group reveal"><h3>iPhone 与 iPad</h3><ul><li>终端、文件、转发、快捷命令和 Agent</li><li>会话保留在 Linux 主机上，断线后自动接回</li><li>灵动岛、锁屏状态，离开后继续运行</li><li>键盘条：常用键、命令短语、发送图片和视频</li><li>工作区标签混排、两格分屏</li><li>适配 iPhone Duo 的折叠、展开与横握</li><li>体验主机：没有服务器也能试用终端和文件</li></ul></div>
+        <div class="feature-group reveal"><h3>同步与隐私</h3><ul><li>iCloud 同步主机、分组、密钥、快捷命令</li><li>局域网加密推送同步</li><li>偏好设置在各设备间共享</li><li>设置里查看 iCloud 同步状态</li><li>面容 ID / 触控 ID 应用锁</li><li>授权引导：系统权限集中说明，一处完成授权</li><li>可在登录后于后台运行，不显示在 Dock</li><li>无需账号，不收集数据，代码开源</li><li>界面支持简体中文、English、繁體中文、日本語、한국어</li></ul></div>
       </div>
     </div>
   </section>
@@ -390,6 +396,11 @@
       <div class="releases">
         <!-- changelog:start -->
         <article class="release reveal">
+          <header><span class="plat ios">iPhone 与 iPad</span><b>2.4.2</b><time datetime="2026-11-21">2026-11-21</time></header>
+          <h4>新功能</h4>
+          <ul><li>体验主机：没有服务器也能试用。在主机页打开它，就有一台模拟的 Linux，可以开终端敲命令，也可以在文件页浏览、编辑文件。全程不联网，也不用订阅。</li><li>uTerm Pro 订阅：月付 ¥18，年付 ¥98（首周免费）。连接主机、打开远程文件、远程控制 Mac、运行快捷命令需要订阅；查看主机列表、修改设置、使用体验主机不受影响。</li><li>设置页新增「订阅」：查看状态、管理订阅、恢复购买，还可以输入兑换码领取 uTerm Pro 永久版。</li><li>TestFlight 里的订阅和兑换走苹果沙盒环境，不会真的扣费。</li></ul>
+        </article>
+        <article class="release reveal">
           <header><span class="plat mac">macOS</span><b>2.4.2</b><time datetime="2026-11-21">2026-11-21</time></header>
           <h4>新功能</h4>
           <ul><li>AI 技能支持一键安装到 Antigravity（链接至 <code>~/.gemini/config/skills/uterm</code>）。</li><li>远程桌面支持为被控 Mac 的系统验证弹窗直接输入密码或取消。</li></ul>
@@ -405,15 +416,6 @@
           <header><span class="plat mac">macOS</span><b>2.4.1</b><time datetime="2026-11-20">2026-11-20</time></header>
           <h4>修复</h4>
           <ul><li>先点开一台还没配对的 Mac、没输核对码就关掉，之后再加入「我的设备」，再次打开那台 Mac 时仍然显示核对码，要重启 App 才能连上。现在加入后会直接连上，那台 Mac 上的输码框也会自动收起。</li></ul>
-        </article>
-        <article class="release reveal">
-          <header><span class="plat ios">iPhone 与 iPad</span><b>2.4.0</b><time datetime="2026-11-20">2026-11-20</time></header>
-          <h4>新功能</h4>
-          <ul><li>终端状态显示在灵动岛和锁屏：Claude Code 等程序运行中、等你确认、完成或出错时都能看到，点一下回到对应标签页；可在「设置 › 终端」关闭。</li><li>离开后继续运行（iOS 26 及以上）：长按终端标签页选 15 分钟到 1 小时，切到别的 App 后连接不断，程序需要你处理或完成时发通知。</li><li>远程桌面可以只看 Mac 的一个窗口：在 Mac 的面板里直接选窗口，窗口按手机画面大小调整，可选文字大小，放大后按原生像素取画面。</li><li>只看一个窗口时，触摸和按键直接发给那个窗口，不移动 Mac 上的指针，Mac 前的人可以照常使用。</li><li>远程桌面新增触摸屏模式：点哪里就是哪里，单指拖动滚动，按住再拖为拖拽，双指轻点为右键。</li></ul>
-          <h4>改进</h4>
-          <ul><li>「附近的 Mac」只自动列出同一 iCloud 账户里的 Mac，扫码页底部可以查看附近的其他 Mac。</li><li>转屏、键盘弹出或收起时，窗口不中断地调整到新大小，过程中不闪。</li><li>输码框弹出后焦点直接落在第一位。</li></ul>
-          <h4>修复</h4>
-          <ul><li>终端和远程桌面键盘里听写只输入第一个字。</li></ul>
         </article>
         <!-- changelog:end -->
       </div>
@@ -436,7 +438,7 @@
           </div>
           <div class="platform">
             <h3>iPhone 与 iPad</h3>
-            <p>需要 iOS / iPadOS 18 或更高版本，目前通过 TestFlight 公开测试。灵动岛与「离开后继续运行」需要更新的系统版本。</p>
+            <p>需要 iOS / iPadOS 18 或更高版本，目前通过 TestFlight 公开测试。灵动岛与「离开后继续运行」需要更新的系统版本。连接主机等功能需要订阅 uTerm Pro，未订阅时可以先用体验主机试用。</p>
             <a class="btn btn-ghost" href="https://testflight.apple.com/join/Ep8bfaZT">加入 TestFlight 公开测试</a>
           </div>
         </div>
@@ -450,9 +452,10 @@
       <div class="head reveal"><h2>常见问题</h2></div>
       <div class="faq reveal">
         <details><summary>iPhone 与 iPad 版怎么安装？</summary><p>目前通过 TestFlight 公开测试。在 iPhone 或 iPad 上安装 TestFlight 后，打开 <a href="https://testflight.apple.com/join/Ep8bfaZT" target="_blank" rel="noopener">邀请链接</a> 加入，之后的测试版会自动推送。</p></details>
+        <details><summary>uTerm 收费吗？</summary><p>Mac 版不需要订阅。iPhone 与 iPad 版里，连接主机、打开远程文件、远程控制 Mac 和运行快捷命令需要订阅 uTerm Pro：月付 ¥18，年付 ¥98（首周免费）。查看主机列表、修改设置和使用体验主机不需要订阅。TestFlight 测试版里的订阅走苹果的沙盒环境，不会实际扣费。</p></details>
         <details><summary>和 Termius 这类工具比有什么不同？</summary><p>uTerm 无需账号，数据通过你自己的 iCloud 同步，不经过第三方服务器。它是 Mac 与 iOS 的原生 App，内置可执行命令的 AI 助手，并支持用手机远程控制 Mac 的终端和屏幕。</p></details>
         <details><summary>支持 Windows 或 Linux 吗？</summary><p>目前只支持 macOS（Apple 芯片）和 iOS / iPadOS。服务器端没有要求，支持 SSH 登录的主机都可以连接。</p></details>
-        <details><summary>远程控制 Mac 需要什么？</summary><p>Mac 和手机都需要安装 uTerm。首次配对时，在 Mac 上输入手机显示的核对码。同一局域网内直接连接；跨网络时先尝试点对点连接，失败时经由自行部署的中继（一条命令即可安装到你的服务器上）。</p></details>
+        <details><summary>远程控制 Mac 需要什么？</summary><p>Mac 和手机都需要安装 uTerm。首次配对时，在 Mac 上输入手机显示的核对码。同一局域网内直接连接；跨网络时先尝试点对点连接，失败时经由自行部署的中继：可在设置里让 AI 把它部署到你已保存的主机上，也可以用一条命令安装。</p></details>
         <details><summary>AI 助手会把我的数据发到哪里？</summary><p>只发送给你配置的模型服务，使用你的 API Key。未配置时不会发送任何内容。</p></details>
         <details><summary>在哪里反馈问题？</summary><p>请在 <a href="https://github.com/uozi-tech/uTerm/issues" target="_blank" rel="noopener">GitHub Issues</a> 提交。安全问题请按 <a href="https://github.com/uozi-tech/uTerm/blob/main/SECURITY.md" target="_blank" rel="noopener">SECURITY.md</a> 私下报告。</p></details>
       </div>
@@ -464,7 +467,7 @@
   <div class="wrap">
     <a class="brand" href="#top"><img src="assets/icon-256.png" alt=""><span class="wordmark">u<b>Term</b></span></a>
     <span>© 2026 柚子星云科技（深圳）有限公司</span>
-    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号</a>
+    <a class="beian" data-i18n="skip" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025466457号-1</a>
     <nav aria-label="页脚">
       <a href="https://github.com/uozi-tech/uTerm" target="_blank" rel="noopener">GitHub</a>
       <a href="https://github.com/uozi-tech/uTerm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a>
@@ -474,6 +477,6 @@
   </div>
 </footer>
 
-<script src="main.js?v=30"></script>
+<script src="main.js?v=32"></script>
 </body>
 </html>
